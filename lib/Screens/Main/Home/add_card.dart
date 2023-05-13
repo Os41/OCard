@@ -34,14 +34,14 @@ class _AddCardState extends State<AddCard> {
                       width: double.infinity,
                       alignment: Alignment.topRight,
                       child: Container(
-                        margin: const EdgeInsets.all(m10),
+                        margin: const EdgeInsets.all(10),
                         decoration: const BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(
                             onPressed: () => {},
-                            iconSize: is24,
+                            iconSize: 24,
                             icon: const Icon(Icons.arrow_forward_rounded)
                         ),
                       ),
@@ -50,15 +50,15 @@ class _AddCardState extends State<AddCard> {
                       'New Card',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: fs20
+                        fontSize: 20
                       ),
                     ),
                     const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 0, vertical: p10),
+                      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                       child: Text(
                         'Adding an existing credit card',
                         style: TextStyle(
-                            fontSize: fs16
+                            fontSize: 16
                         ),
                       ),
                     )
@@ -71,8 +71,8 @@ class _AddCardState extends State<AddCard> {
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(br35),
-                    topRight: Radius.circular(br35),
+                    topLeft: Radius.circular(35),
+                    topRight: Radius.circular(35),
                   ),
                 ),
                 child: Column(
@@ -80,17 +80,17 @@ class _AddCardState extends State<AddCard> {
                     Container(),
                     Center(
                       child: Container(
-                          margin: const EdgeInsets.all(m20),
+                          margin: const EdgeInsets.all(20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Padding(
-                                padding: EdgeInsets.symmetric(vertical: p10),
+                                padding: EdgeInsets.symmetric(vertical: 10),
                                 child: Text(
                                     'Card holder name',
                                     style: TextStyle(
                                       color: Color(secondaryColor),
-                                      fontSize: fs16
+                                      fontSize: 16
                                     ),
                                 ),
                               ),
@@ -112,17 +112,17 @@ class _AddCardState extends State<AddCard> {
                     ),
                     Center(
                       child: Container(
-                          margin: const EdgeInsets.all(m20),
+                          margin: const EdgeInsets.all(20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Padding(
-                                padding: EdgeInsets.symmetric(vertical: p10),
+                                padding: EdgeInsets.symmetric(vertical: 10),
                                 child: Text(
                                   'Card number',
                                   style: TextStyle(
                                       color: Color(secondaryColor),
-                                      fontSize: fs16
+                                      fontSize: 16
                                   ),
                                 ),
                               ),

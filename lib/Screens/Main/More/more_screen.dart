@@ -26,7 +26,7 @@ class _MoreScreenState extends State<MoreScreen> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-            margin: const EdgeInsets.all(m5),
+            margin: const EdgeInsets.all(5),
             width: double.infinity,
             height: screenHeight * 0.79,
             child: SingleChildScrollView(
@@ -81,17 +81,16 @@ class OptionButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: p20, vertical: p18),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
         decoration: const BoxDecoration(
           border: Border(
-            // top: BorderSide(width: 1.0, color: Colors.black26),
             bottom: BorderSide(width: 1.0, color: Colors.black26),
           ),
         ),
         child: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: p10, vertical: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
               child: Icon(iconData, color: const Color(secondaryColor)),
             ),
             Text(buttonText, style: const TextStyle(color: Color(primaryColor)),)

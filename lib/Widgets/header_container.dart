@@ -41,18 +41,18 @@ class _HeaderContainerState extends State<HeaderContainer>{
 
     return Center(
       child: Container(
-        margin: const EdgeInsets.all(m5),
+        margin: const EdgeInsets.all(5),
         width: double.infinity,
         height: widget.option ? screenHeight * 0.49 : widget.expand ? screenHeight * 0.28 : screenHeight * 0.12,
         decoration: const BoxDecoration(
             color: Color(secondaryColor),
-            borderRadius: BorderRadius.all(Radius.circular(br35))
+            borderRadius: BorderRadius.all(Radius.circular(35))
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: m20, vertical: widget.expand ? m5 : 0),
+              margin: EdgeInsets.symmetric(horizontal: 20, vertical: widget.expand ? 5 : 0),
               width: double.infinity,
               height: 70,
               child: Row(
@@ -64,7 +64,7 @@ class _HeaderContainerState extends State<HeaderContainer>{
                     child: RichText(
                       text: TextSpan(
                         style: const TextStyle(
-                          fontSize: fs16,
+                          fontSize: 16,
                           color: Colors.white,
                         ),
                         children: <TextSpan>[
@@ -80,14 +80,14 @@ class _HeaderContainerState extends State<HeaderContainer>{
                       children: [
                         IconButton(
                             onPressed: () => {},
-                            iconSize: is30,
+                            iconSize: 30,
                             icon: const Icon(
                                 Icons.notifications_active_rounded,
                                 color: Colors.white
                             )
                         ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(p10, 0, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                           child: GestureDetector(
                               onTap: () => {},
                               child: const ClipOval(
@@ -107,7 +107,7 @@ class _HeaderContainerState extends State<HeaderContainer>{
               ),
             ),
             if(widget.expand) Container(
-              margin: const EdgeInsets.all(m20),
+              margin: const EdgeInsets.all(20),
               width: double.infinity,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -120,11 +120,11 @@ class _HeaderContainerState extends State<HeaderContainer>{
                       )
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: p10),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Text(
                         getTotalBalance(),
                         style: const TextStyle(
-                          fontSize: fs34,
+                          fontSize: 34,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         )
@@ -134,24 +134,24 @@ class _HeaderContainerState extends State<HeaderContainer>{
               ),
             ),
             if(widget.expand && widget.option) Container(
-              margin: const EdgeInsets.all(m20),
+              margin: const EdgeInsets.all(20),
               width: double.infinity,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Column(
                     children: [
-                      const Text('Update', style: TextStyle(color: Colors.white, fontSize: fs16)),
+                      const Text('Update', style: TextStyle(color: Colors.white, fontSize: 16)),
                       Container(
-                        margin: const EdgeInsets.all(m10),
-                        padding: const EdgeInsets.all(p5),
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(5),
                         decoration: const BoxDecoration(
                           color: Color(primaryColor),
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(
                             onPressed: () => {},
-                            iconSize: is30,
+                            iconSize: 30,
                             icon: const Icon(
                                 Icons.ac_unit_outlined,
                                 color: Colors.white
@@ -162,9 +162,9 @@ class _HeaderContainerState extends State<HeaderContainer>{
                   ),
                   Column(
                     children: [
-                      const Text('Add card', style: TextStyle(color: Colors.white, fontSize: fs16)),
+                      const Text('Add card', style: TextStyle(color: Colors.white, fontSize: 16)),
                       Container(
-                        margin: const EdgeInsets.all(m10),
+                        margin: const EdgeInsets.all(10),
                         decoration: const BoxDecoration(
                           color: Colors.white12,
                           shape: BoxShape.circle,
@@ -177,7 +177,7 @@ class _HeaderContainerState extends State<HeaderContainer>{
                           strokeCap: StrokeCap.round,
                           child: IconButton(
                               onPressed: () => {},
-                              iconSize: is34,
+                              iconSize: 34,
                               icon: const Icon(
                                   Icons.add,
                                   color: Colors.white
@@ -189,17 +189,17 @@ class _HeaderContainerState extends State<HeaderContainer>{
                   ),
                   Column(
                     children: [
-                      const Text('Info', style: TextStyle(color: Colors.white, fontSize: fs16)),
+                      const Text('Info', style: TextStyle(color: Colors.white, fontSize: 16)),
                       Container(
-                        margin: const EdgeInsets.all(m5),
-                        padding: const EdgeInsets.all(p5),
+                        margin: const EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
                         decoration: const BoxDecoration(
                           color: Color(primaryColor),
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(
                             onPressed: () => {},
-                            iconSize: is30,
+                            iconSize: 30,
                             icon: const Icon(
                                 Icons.info_outline_rounded,
                                 color: Colors.white
