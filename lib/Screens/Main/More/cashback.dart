@@ -20,15 +20,15 @@ class _CashbackState extends State<Cashback> {
             children: [
               Center(
                 child: Container(
-                  margin: const EdgeInsets.all(m5),
+                  margin: const EdgeInsets.all(5),
                   width: double.infinity,
                   height: screenHeight * 0.12,
                   decoration: const BoxDecoration(
                       color: Color(secondaryColor),
-                      borderRadius: BorderRadius.all(Radius.circular(br35))
+                      borderRadius: BorderRadius.all(Radius.circular(35))
                   ),
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: m20),
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
                     width: double.infinity,
                     height: 70,
                     child: Row(
@@ -39,7 +39,7 @@ class _CashbackState extends State<Cashback> {
                             alignment: Alignment.center,
                             child: const Text(
                                 style: TextStyle(
-                                    fontSize: fs16,
+                                    fontSize: 16,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold
                                 ),
@@ -48,7 +48,7 @@ class _CashbackState extends State<Cashback> {
                           ),
                           IconButton(
                               onPressed: () => {Navigator.pop(context)},
-                              iconSize: is30,
+                              iconSize: 30,
                               icon: const Icon(
                                   Icons.arrow_forward_rounded,
                                   color: Colors.white

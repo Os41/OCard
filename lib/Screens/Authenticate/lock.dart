@@ -41,7 +41,7 @@ class _LockState extends State<Lock> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: m10),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 width: double.infinity,
                 height: screenHeight * 0.45,
                 child: Column(
@@ -55,7 +55,7 @@ class _LockState extends State<Lock> {
                           // do something
                         },
                         child: const Padding(
-                          padding: EdgeInsets.all(p16), // set the margin to 8 pixels on all sides
+                          padding: EdgeInsets.all(16), // set the margin to 8 pixels on all sides
                           child: Icon(
                             Icons.exit_to_app,
                             color: Color(secondaryColor), // set the color to red
@@ -75,7 +75,7 @@ class _LockState extends State<Lock> {
                         Container(
                             height: 10,
                             width: 10,
-                            margin: const EdgeInsets.symmetric(horizontal: m10),
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
                               color: _lockNumber.length > 0 ? const Color(primaryColor) : null,
                               shape: BoxShape.circle,
@@ -88,7 +88,7 @@ class _LockState extends State<Lock> {
                         Container(
                             height: 10,
                             width: 10,
-                            margin: const EdgeInsets.symmetric(horizontal: m10),
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
                               color: _lockNumber.length > 1 ? const Color(primaryColor) : null,
                               shape: BoxShape.circle,
@@ -101,7 +101,7 @@ class _LockState extends State<Lock> {
                         Container(
                             height: 10,
                             width: 10,
-                            margin: const EdgeInsets.symmetric(horizontal: m10),
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
                               color: _lockNumber.length > 2 ? const Color(primaryColor) : null,
                               shape: BoxShape.circle,
@@ -114,7 +114,7 @@ class _LockState extends State<Lock> {
                         Container(
                             height: 10,
                             width: 10,
-                            margin: const EdgeInsets.symmetric(horizontal: m10),
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
                               color: _lockNumber.length > 3 ? const Color(primaryColor) : null,
                               shape: BoxShape.circle,
@@ -127,7 +127,7 @@ class _LockState extends State<Lock> {
                         Container(
                             height: 10,
                             width: 10,
-                            margin: const EdgeInsets.symmetric(horizontal: m10),
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
                               color: _lockNumber.length > 4 ? const Color(primaryColor) : null,
                               shape: BoxShape.circle,
@@ -140,7 +140,7 @@ class _LockState extends State<Lock> {
                         Container(
                             height: 10,
                             width: 10,
-                            margin: const EdgeInsets.symmetric(horizontal: m10),
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
                               color:  _lockNumber.length > 5 ? const Color(primaryColor) : null,
                               shape: BoxShape.circle,
@@ -152,7 +152,7 @@ class _LockState extends State<Lock> {
                         ),
                       ],
                     ),
-                    const SizedBox(width: m10),
+                    const SizedBox(width: 10),
                     GestureDetector(
                       onTap: () {
                         // do something
@@ -168,7 +168,7 @@ class _LockState extends State<Lock> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: m10),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 width: double.infinity,
                 height: screenHeight * 0.55,
                 child: Column(
@@ -235,13 +235,13 @@ class NumberButton extends StatelessWidget {
     return MaterialButton(
         onPressed: buttonText.isNotEmpty || iconData != null ? onPressed : null,
         textColor: const Color(primaryColor),
-        padding: const EdgeInsets.all(p20),
+        padding: const EdgeInsets.all(20),
         child: iconData != null ?
           Icon(iconData) :
           Text(
             buttonText,
             style: const TextStyle(
-              fontSize: fs20,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
