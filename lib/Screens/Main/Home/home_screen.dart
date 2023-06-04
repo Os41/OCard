@@ -1,4 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../constants.dart';
+import '../../../Models/user.dart';
+import '../../../Services/database.dart';
+import '../../Purchase/purchase_by_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -8,240 +14,317 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  UserData? userData;
+  int shield = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(width: double.infinity, height: 200, color: Colors.amber,),
-          Container(width: double.infinity, height: 200, color: Colors.blue,),
-          Container(width: double.infinity, height: 200, color: Colors.limeAccent,),
-        ],
+    final user = Provider.of<User?>(context);
+    if(user != null){
+      DatabaseService(uid: user.uid).usersRef.child(user.uid).onValue.listen((event) {
+        final Map<dynamic, dynamic>? data =
+        event.snapshot.value as Map<dynamic, dynamic>?;
+        if (data != null) {
+          final Map<String, dynamic> convertedData =
+          Map<String, dynamic>.from(data);
+
+          final UserData formatData = UserData.fromMap(convertedData);
+          setState(() {
+            userData = formatData;
+          });
+        }
+      });
+      if(userData != null){
+        setState(() {
+          shield = userData!.shield;
+        });
+      }
+    }
+
+    return SizedBox(
+      width: double.infinity,
+      height: 350,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              width: 190,
+              height: 350,
+              margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              decoration: const BoxDecoration(
+                color: Color(secondaryColor),
+                borderRadius: BorderRadius.all(Radius.circular(35))
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    margin: const EdgeInsets.only(bottom: 10.0),
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom:
+                        BorderSide(width: 1.0, color: Colors.white60),
+                      ),
+                    ),
+                    child: const Text(
+                      'Active card type',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18,
+                          color: Colors.white
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      showDialog(context: context, builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Select type'),
+                          content: SizedBox(
+                            height: 350,
+                            width: 600,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    DatabaseService(uid: user!.uid).updateUserData('shield', 1);
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    decoration: const BoxDecoration(
+                                      border: Border(
+                                        bottom:
+                                        BorderSide(width: 1.0, color: Colors.black12),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        const SizedBox(
+                                          width: 100,
+                                          height: 90,
+                                          child: Image(
+                                            image: AssetImage('assets/images/shields/Category-shield.png'),
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: const [
+                                            Padding(
+                                              padding: EdgeInsets.only(bottom: 8.0),
+                                              child: Text(
+                                                  'Category',
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Color(secondaryColor),
+                                                  )
+                                              ),
+                                            ),
+                                            Text(
+                                                'Categories for each card.',
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w200,
+                                                  color: Color(gray),
+                                                )
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    DatabaseService(uid: user!.uid).updateUserData('shield', 2);
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    decoration: const BoxDecoration(
+                                      border: Border(
+                                        bottom:
+                                        BorderSide(width: 1.0, color: Colors.black12),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        const SizedBox(
+                                          width: 100,
+                                          height: 90,
+                                          child: Image(
+                                            image: AssetImage('assets/images/shields/Percentage-shield.png'),
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: const [
+                                            Padding(
+                                              padding: EdgeInsets.only(bottom: 8.0),
+                                              child: Text(
+                                                  'Percentage',
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Color(secondaryColor),
+                                                  )
+                                              ),
+                                            ),
+                                            Text(
+                                                'Percentage for each card.',
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w200,
+                                                  color: Color(gray),
+                                                )
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    DatabaseService(uid: user!.uid).updateUserData('shield', 3);
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Row(
+                                    children: [
+                                      const SizedBox(
+                                        width: 100,
+                                        height: 90,
+                                        child: Image(
+                                          image: AssetImage('assets/images/shields/Priority-shield.png'),
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: const [
+                                          Padding(
+                                            padding: EdgeInsets.only(bottom: 8.0),
+                                            child: Text(
+                                                'Priority',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Color(secondaryColor),
+                                                )
+                                            ),
+                                          ),
+                                          Text(
+                                              'Priority for each card.',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w200,
+                                                color: Color(gray),
+                                              )
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            MaterialButton(
+                              child: const Text('Close'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      });
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      width: double.infinity,
+                      child: Image(
+                        image: AssetImage('assets/images/shields/${shieldsList[shield]['image']}'),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.only(top: 10.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      shieldsList[shield]['label'],
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                          color: Colors.white
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              width: 190,
+              height: 350,
+              margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              decoration: const BoxDecoration(
+                  color: Color(secondaryColor),
+                  borderRadius: BorderRadius.all(Radius.circular(35))
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    margin: const EdgeInsets.only(bottom: 10.0),
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom:
+                        BorderSide(width: 1.0, color: Colors.white60),
+                      ),
+                    ),
+                    child: const Text(
+                      'Use O Card',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18,
+                          color: Colors.white
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const PurchaseByCard()));
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+                      width: double.infinity,
+                      child: const Image(
+                        image: AssetImage('assets/images/logo/logo-big.png'),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
     );
   }
 }
-
-// CustomScrollView(
-//   slivers: <Widget>[
-//     SliverPersistentHeader(
-//       pinned: true,
-//       delegate: _CustomHeaderDelegate(
-//         minHeight: 140.0,
-//         maxHeight: 390.0,
-//         child: Container(
-//           color: Colors.white,
-//           child: Center(
-//             child: Container(
-//               margin: EdgeInsets.all(m_10),
-//               width: double.infinity,
-//               decoration: BoxDecoration(
-//                   color: Color(secondaryColor),
-//                   borderRadius: BorderRadius.all(Radius.circular(br_35))
-//               ),
-//               child: Column(
-//                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                 children: [
-//                   Container(
-//                     margin: EdgeInsets.all(m_20),
-//                     width: double.infinity,
-//                     height: 70,
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: [
-//                         Container(
-//                           height: double.infinity,
-//                           alignment: Alignment.center,
-//                           child: RichText(
-//                             text: TextSpan(
-//                               style: const TextStyle(
-//                                 fontSize: fs16,
-//                                 color: Colors.white,
-//                               ),
-//                               children: <TextSpan>[
-//                                 const TextSpan(text: 'Hello, '),
-//                                 TextSpan(text: name, style: const TextStyle(fontWeight: FontWeight.bold)),
-//                               ],
-//                             ),
-//                           ),
-//                         ),
-//                         Container(
-//                           height: double.infinity,
-//                           child: Row(
-//                             children: [
-//                               IconButton(
-//                                   onPressed: () => {},
-//                                   iconSize: is30,
-//                                   icon: const Icon(
-//                                       Icons.notifications_active_rounded,
-//                                       color: Colors.white
-//                                   )
-//                               ),
-//                               Padding(
-//                                 padding: const EdgeInsets.fromLTRB(p10, 0, 0, 0),
-//                                 child: GestureDetector(
-//                                     onTap: () => {
-//                                       setState(() {
-//                                         _visible = !_visible;
-//                                       })
-//                                     },
-//                                     child: const ClipOval(
-//                                       child: Image(
-//                                         image: AssetImage('assets/images/Omar.jpg'),
-//                                         width: 60.0,
-//                                         height: 60.0,
-//                                         fit: BoxFit.cover,
-//                                       ),
-//                                     )
-//                                 ),
-//                               )
-//                             ],
-//                           ),
-//                         )
-//                       ],
-//                     ),
-//                   ),
-//                   Container(
-//                     margin: EdgeInsets.all(m_20),
-//                     width: double.infinity,
-//                     child: Column(
-//                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                       children: [
-//                         const Text(
-//                             "Your total balance",
-//                             style: TextStyle(
-//                                 color: Colors.white,
-//                                 fontWeight: FontWeight.w300
-//                             )
-//                         ),
-//                         Padding(
-//                           padding: const EdgeInsets.symmetric(vertical: p10),
-//                           child: Text(
-//                               getTotalBalance(),
-//                               style: const TextStyle(
-//                                 fontSize: fs34,
-//                                 fontWeight: FontWeight.bold,
-//                                 color: Colors.white,
-//                               )
-//                           ),
-//                         )
-//                       ],
-//                     ),
-//                   ),
-//                   Container(
-//                     margin: EdgeInsets.all(m_20),
-//                     width: double.infinity,
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                       children: [
-//                         Column(
-//                           children: [
-//                             const Text('Update', style: TextStyle(color: Colors.white, fontSize: fs16)),
-//                             Container(
-//                               margin: const EdgeInsets.all(m10),
-//                               padding: const EdgeInsets.all(p5),
-//                               decoration: BoxDecoration(
-//                                 color: Color(primaryColor),
-//                                 shape: BoxShape.circle,
-//                               ),
-//                               child: IconButton(
-//                                   onPressed: () => {},
-//                                   iconSize: is30,
-//                                   icon: const Icon(
-//                                       Icons.ac_unit_outlined,
-//                                       color: Colors.white
-//                                   )
-//                               ),
-//                             )
-//                           ],
-//                         ),
-//                         Column(
-//                           children: [
-//                             const Text('Add card', style: TextStyle(color: Colors.white, fontSize: fs16)),
-//                             Container(
-//                               margin: const EdgeInsets.all(m10),
-//                               decoration: const BoxDecoration(
-//                                 color: Colors.white12,
-//                                 shape: BoxShape.circle,
-//                               ),
-//                               child: DottedBorder(
-//                                 borderType: BorderType.Circle,
-//                                 color: Colors.white,
-//                                 dashPattern: const [6, 6],
-//                                 strokeWidth: 2,
-//                                 strokeCap: StrokeCap.round,
-//                                 child: IconButton(
-//                                     onPressed: () => {},
-//                                     iconSize: is34,
-//                                     icon: const Icon(
-//                                         Icons.add,
-//                                         color: Colors.white
-//                                     )
-//                                 ),
-//                               ),
-//                             )
-//                           ],
-//                         ),
-//                         Column(
-//                           children: [
-//                             const Text('Info', style: TextStyle(color: Colors.white, fontSize: fs16)),
-//                             Container(
-//                               margin: const EdgeInsets.all(m5),
-//                               padding: const EdgeInsets.all(p5),
-//                               decoration: BoxDecoration(
-//                                 color: Color(primaryColor),
-//                                 shape: BoxShape.circle,
-//                               ),
-//                               child: IconButton(
-//                                   onPressed: () => {},
-//                                   iconSize: is30,
-//                                   icon: const Icon(
-//                                       Icons.info_outline_rounded,
-//                                       color: Colors.white
-//                                   )
-//                               ),
-//                             )
-//                           ],
-//                         )
-//                       ],
-//                     ),
-//                   )
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//     ),
-//     SliverList(
-//       delegate: SliverChildListDelegate([
-//         Container(width: double.infinity, height: 200, color: Colors.amber,),
-//         Container(width: double.infinity, height: 200, color: Colors.blue,),
-//         Container(width: double.infinity, height: 200, color: Colors.limeAccent,),
-//       ]),
-//     ),
-//   ],
-// )
-class _CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
-  final double minHeight;
-  final double maxHeight;
-  final Widget child;
-
-  _CustomHeaderDelegate({required this.minHeight, required this.maxHeight, required this.child});
-
-  @override
-  double get minExtent => minHeight;
-
-  @override
-  double get maxExtent => maxHeight;
-
-  @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return SizedBox.expand(child: child);
-  }
-
-  @override
-  bool shouldRebuild(_CustomHeaderDelegate oldDelegate) {
-    return maxHeight != oldDelegate.maxHeight || minHeight != oldDelegate.minHeight || child != oldDelegate.child;
-  }
-}
+// PurchaseByCard

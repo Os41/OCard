@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../Data/constants.dart';
+import '../../../constants.dart';
 
 class ProfileInformation extends StatefulWidget {
   const ProfileInformation({Key? key}) : super(key: key);

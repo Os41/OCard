@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../Data/constants.dart';
+import '../../../constants.dart';
 
 class HelpAndSupport extends StatefulWidget {
   const HelpAndSupport({Key? key}) : super(key: key);

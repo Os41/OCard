@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../Data/constants.dart';
+import '../../../constants.dart';
 
 class InviteFriend extends StatefulWidget {
   const InviteFriend({Key? key}) : super(key: key);

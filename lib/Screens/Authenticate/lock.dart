@@ -1,17 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../../Data/constants.dart';
+import 'package:o_card/Services/auth.dart';
+import '../../constants.dart';
+import '../../Models/user.dart';
 
 class Lock extends StatefulWidget {
   final Function toggleView;
-  const Lock({Key? key, required this.toggleView}) : super(key: key);
+  final User user;
+  final UserData? userData;
+  const Lock({Key? key, required this.toggleView, required this.user, this.userData}) : super(key: key);
 
   @override
   State<Lock> createState() => _LockState();
 }
 
 class _LockState extends State<Lock> {
-
   String _lockNumber = '';
 
   addNumber(String letter) {
@@ -28,10 +31,8 @@ class _LockState extends State<Lock> {
     double screenHeight = size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom;
 
     if (_lockNumber.length == 6) {
-      if(_lockNumber == '123456'){
+      if(_lockNumber == widget.userData!.passcode){
         widget.toggleView();
-      }else{
-        print('Wrong number');
       }
     }
 
@@ -52,7 +53,7 @@ class _LockState extends State<Lock> {
                       width: double.infinity,
                       child: GestureDetector(
                         onTap: () {
-                          // do something
+                          AuthService().signOut();
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(16), // set the margin to 8 pixels on all sides
@@ -63,11 +64,14 @@ class _LockState extends State<Lock> {
                         )
                       ),
                     ),
-                    const Center(
-                        child: Image(
-                          image: AssetImage('assets/images/logo-with-name.png'),
-                          fit: BoxFit.cover,
-                        ),
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(20, 0, 20, 30),
+                      child: Center(
+                          child: Image(
+                            image: AssetImage('assets/images/logo/b-logo-t.png'),
+                            fit: BoxFit.cover,
+                          ),
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -77,10 +81,10 @@ class _LockState extends State<Lock> {
                             width: 10,
                             margin: const EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
-                              color: _lockNumber.length > 0 ? const Color(primaryColor) : null,
+                              color: _lockNumber.isNotEmpty ? const Color(hRed) : null,
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: const Color(primaryColor),
+                                color: const Color(hRed),
                                 width: 2.0,
                               ),
                             )
@@ -90,10 +94,10 @@ class _LockState extends State<Lock> {
                             width: 10,
                             margin: const EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
-                              color: _lockNumber.length > 1 ? const Color(primaryColor) : null,
+                              color: _lockNumber.length > 1 ? const Color(hRed) : null,
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: const Color(primaryColor),
+                                color: const Color(hRed),
                                 width: 2.0,
                               ),
                             )
@@ -103,10 +107,10 @@ class _LockState extends State<Lock> {
                             width: 10,
                             margin: const EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
-                              color: _lockNumber.length > 2 ? const Color(primaryColor) : null,
+                              color: _lockNumber.length > 2 ? const Color(hRed) : null,
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: const Color(primaryColor),
+                                color: const Color(hRed),
                                 width: 2.0,
                               ),
                             )
@@ -116,10 +120,10 @@ class _LockState extends State<Lock> {
                             width: 10,
                             margin: const EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
-                              color: _lockNumber.length > 3 ? const Color(primaryColor) : null,
+                              color: _lockNumber.length > 3 ? const Color(hRed) : null,
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: const Color(primaryColor),
+                                color: const Color(hRed),
                                 width: 2.0,
                               ),
                             )
@@ -129,10 +133,10 @@ class _LockState extends State<Lock> {
                             width: 10,
                             margin: const EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
-                              color: _lockNumber.length > 4 ? const Color(primaryColor) : null,
+                              color: _lockNumber.length > 4 ? const Color(hRed) : null,
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: const Color(primaryColor),
+                                color: const Color(hRed),
                                 width: 2.0,
                               ),
                             )
@@ -142,28 +146,16 @@ class _LockState extends State<Lock> {
                             width: 10,
                             margin: const EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
-                              color:  _lockNumber.length > 5 ? const Color(primaryColor) : null,
+                              color:  _lockNumber.length > 5 ? const Color(hRed) : null,
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: const Color(primaryColor),
+                                color: const Color(hRed),
                                 width: 2.0,
                               ),
                             )
                         ),
                       ],
                     ),
-                    const SizedBox(width: 10),
-                    GestureDetector(
-                      onTap: () {
-                        // do something
-                      },
-                      child: const Text(
-                          'Forgot passcode?',
-                          style: TextStyle(
-                            color: Color(secondaryColor), // set the color to red
-                          ),
-                        ),
-                    )
                   ],
                 ),
               ),
@@ -234,7 +226,7 @@ class NumberButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
         onPressed: buttonText.isNotEmpty || iconData != null ? onPressed : null,
-        textColor: const Color(primaryColor),
+        textColor: const Color(pBlue),
         padding: const EdgeInsets.all(20),
         child: iconData != null ?
           Icon(iconData) :

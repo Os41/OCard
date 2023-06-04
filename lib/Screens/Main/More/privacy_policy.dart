@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../Data/constants.dart';
+import '../../../constants.dart';
 
 class PrivacyPolicy extends StatefulWidget {
   const PrivacyPolicy({Key? key}) : super(key: key);

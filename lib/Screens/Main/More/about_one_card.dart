@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../Data/constants.dart';
+import '../../../constants.dart';
 
 class AboutOneCard extends StatefulWidget {
   const AboutOneCard({Key? key}) : super(key: key);
