@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../../Data/constants.dart';
+import 'package:o_card/Services/auth.dart';
+import 'package:provider/provider.dart';
+import '../../../constants.dart';
 import 'about_one_card.dart';
 import 'cashback.dart';
 import 'help_and_support.dart';
@@ -19,8 +22,17 @@ class MoreScreen extends StatefulWidget {
 class _MoreScreenState extends State<MoreScreen> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double screenHeight = size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom - 90;
+    final user = Provider.of<User?>(context);
+    Size size = MediaQuery
+        .of(context)
+        .size;
+    double screenHeight = size.height - MediaQuery
+        .of(context)
+        .padding
+        .top - MediaQuery
+        .of(context)
+        .padding
+        .bottom - 90;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -33,33 +45,61 @@ class _MoreScreenState extends State<MoreScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  OptionButton(onPressed: () => {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileInformation()))
+                  OptionButton(onPressed: () =>
+                  {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const ProfileInformation()))
                   }, buttonText: profileInformation, iconData: Icons.person),
-                  OptionButton(onPressed: () => {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const MyQrCode()))
+                  OptionButton(onPressed: () =>
+                  {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const MyQrCode()))
                   }, buttonText: myQrCode, iconData: Icons.qr_code),
-                  OptionButton(onPressed: () => {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const Cashback()))
+                  OptionButton(onPressed: () =>
+                  {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const Cashback()))
                   }, buttonText: cashback, iconData: Icons.money_rounded),
 
-                  OptionButton(onPressed: () => {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const InviteFriend()))
-                  }, buttonText: inviteFriend, iconData: Icons.connect_without_contact_rounded),
-                  OptionButton(onPressed: () => {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const HelpAndSupport()))
-                  }, buttonText: helpAndSupport, iconData: Icons.support_agent_rounded),
-                  OptionButton(onPressed: () => {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutOneCard()))
-                  }, buttonText: aboutOneCard, iconData: Icons.info_outline_rounded),
+                  OptionButton(onPressed: () =>
+                  {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const InviteFriend()))
+                  },
+                      buttonText: inviteFriend,
+                      iconData: Icons.connect_without_contact_rounded),
+                  OptionButton(onPressed: () =>
+                  {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const HelpAndSupport()))
+                  },
+                      buttonText: helpAndSupport,
+                      iconData: Icons.support_agent_rounded),
+                  OptionButton(onPressed: () =>
+                  {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const AboutOneCard()))
+                  },
+                      buttonText: aboutOneCard,
+                      iconData: Icons.info_outline_rounded),
 
+                  OptionButton(onPressed: () =>
+                  {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const TermsAndConditions()))
+                  },
+                      buttonText: termsAndConditions,
+                      iconData: Icons.file_copy_rounded),
+                  OptionButton(onPressed: () =>
+                  {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const PrivacyPolicy()))
+                  },
+                      buttonText: privacyPolicy,
+                      iconData: Icons.privacy_tip_rounded),
                   OptionButton(onPressed: () => {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const TermsAndConditions()))
-                  }, buttonText: termsAndConditions, iconData: Icons.file_copy_rounded),
-                  OptionButton(onPressed: () => {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const PrivacyPolicy()))
-                  }, buttonText: privacyPolicy, iconData: Icons.privacy_tip_rounded),
-                  OptionButton(onPressed: () => {}, buttonText: logOut, iconData: Icons.logout_rounded),
+                  AuthService().signOut()
+                  }, buttonText: logOut, iconData: Icons.logout_rounded),
                 ],
               ),
             )
@@ -74,7 +114,9 @@ class OptionButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onPressed;
 
-  const OptionButton({Key? key, required this.iconData, required this.buttonText, required this.onPressed}) : super(key: key);
+  const OptionButton(
+      {Key? key, required this.iconData, required this.buttonText, required this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -93,11 +135,11 @@ class OptionButton extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
               child: Icon(iconData, color: const Color(secondaryColor)),
             ),
-            Text(buttonText, style: const TextStyle(color: Color(primaryColor)),)
+            Text(
+              buttonText, style: const TextStyle(color: Color(secondaryColor)),)
           ],
         ),
       ),
     );
   }
 }
-

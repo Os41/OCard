@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../Data/constants.dart';
+import '../../../constants.dart';
 
 class MyQrCode extends StatefulWidget {
   const MyQrCode({Key? key}) : super(key: key);

@@ -1,17 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import '../../Data/constants.dart';
-import 'package:dotted_border/dotted_border.dart';
-
-const double balance_1 = 10000.00;
-const double balance_2 = 498.00;
-const double balance_3 = 14000.00;
-const double balance_4 = 50000.00;
+import 'package:o_card/Models/user.dart';
+import 'package:o_card/Screens/Main/Home/percentage_screen.dart';
+import '../constants.dart';
+import '../Models/card.dart';
+import '../Screens/Main/Home/category_screen.dart';
+import '../Screens/Main/Home/priority_screen.dart';
+import '../Services/utils.dart';
 
 class HeaderContainer extends StatefulWidget {
   final bool expand, option;
   final String title;
-  const HeaderContainer({Key? key, required this.title, required this.expand, required this.option}) : super(key: key);
+  final UserData? userData;
+  final User? user;
+  final List<CreditCard>? creditCards;
+  const HeaderContainer({Key? key, required this.title, required this.expand, required this.option, this.userData, this.user, this.creditCards}) : super(key: key);
 
   @override
   State<HeaderContainer> createState() => _HeaderContainerState();
@@ -19,201 +22,198 @@ class HeaderContainer extends StatefulWidget {
 
 class _HeaderContainerState extends State<HeaderContainer>{
 
-  final List<double> listOfCardsBalance = [balance_1, balance_2, balance_3, balance_4];
-
-  String getTotalBalance() {
-    double sum = 0.00;
-    NumberFormat formatter = NumberFormat('#,##0.00', 'en_US');
-
-    for (int i = 0; i < listOfCardsBalance.length; i++) {
-      sum += listOfCardsBalance[i];
-    }
-
-    String formattedNumber = formatter.format(sum);
-
-    return "\$ $formattedNumber";
-  }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double screenHeight = size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom - 90;
+    String headerStyle = widget.option ? 'L-HeaderStyle.png' : widget.expand ? 'M-HeaderStyle.png' : 'S-HeaderStyle.png';
 
     return Center(
-      child: Container(
-        margin: const EdgeInsets.all(5),
-        width: double.infinity,
-        height: widget.option ? screenHeight * 0.49 : widget.expand ? screenHeight * 0.28 : screenHeight * 0.12,
-        decoration: const BoxDecoration(
-            color: Color(secondaryColor),
-            borderRadius: BorderRadius.all(Radius.circular(35))
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: widget.expand ? 5 : 0),
-              width: double.infinity,
-              height: 70,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: double.infinity,
-                    alignment: Alignment.center,
-                    child: RichText(
-                      text: TextSpan(
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
+        child: Container(
+          margin: const EdgeInsets.all(5),
+          width: double.infinity,
+          height: widget.option ? screenHeight * 0.49 : widget.expand ? screenHeight * 0.28 : screenHeight * 0.12,
+          decoration: BoxDecoration(
+              color: const Color(secondaryColor),
+              image: DecorationImage(
+                image: AssetImage('assets/images/$headerStyle'),
+                fit: BoxFit.contain,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(35))
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: widget.expand ? 5 : 0),
+                width: double.infinity,
+                height: 70,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      height: double.infinity,
+                      alignment: Alignment.center,
+                      child: RichText(
+                        text: TextSpan(
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                          children: <TextSpan>[
+                            if(widget.expand) const TextSpan(text: 'Hello, '),
+                            TextSpan(text: widget.title.isEmpty ? widget.userData!.fullName: widget.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                          ],
                         ),
-                        children: <TextSpan>[
-                          if(widget.expand) const TextSpan(text: 'Hello, '),
-                          TextSpan(text: widget.title, style: const TextStyle(fontWeight: FontWeight.bold)),
-                        ],
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: double.infinity,
-                    child: Row(
-                      children: [
-                        IconButton(
-                            onPressed: () => {},
-                            iconSize: 30,
-                            icon: const Icon(
-                                Icons.notifications_active_rounded,
-                                color: Colors.white
-                            )
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                          child: GestureDetector(
-                              onTap: () => {},
-                              child: const ClipOval(
-                                child: Image(
-                                  image: AssetImage('assets/images/Omar.jpg'),
-                                  width: 60.0,
-                                  height: 60.0,
-                                  fit: BoxFit.cover,
-                                ),
+                    SizedBox(
+                      height: double.infinity,
+                      child: Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {},
+                              iconSize: 30,
+                              icon: const Icon(
+                                  Icons.notifications_active_rounded,
+                                  color: Colors.white
                               )
                           ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: GestureDetector(
+                                onTap: () => {},
+                                child: ClipOval(
+                                  child: Image(
+                                    image: AssetImage(userAccount['image']),
+                                    width: 60.0,
+                                    height: 60.0,
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            if(widget.expand) Container(
-              margin: const EdgeInsets.all(20),
-              width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Text(
-                      "Your total balance",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w300
-                      )
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Text(
-                        getTotalBalance(),
-                        style: const TextStyle(
-                          fontSize: 34,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+              if(widget.expand) Container(
+                margin: const EdgeInsets.all(20),
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text(
+                        "Your total balance",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w300
                         )
                     ),
-                  )
-                ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Text(
+                          getTotalBalance(
+                              fetchTotalBalance(widget.user!.uid, widget.creditCards!)
+                          ),
+                          style: const TextStyle(
+                            fontSize: 34,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          )
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            if(widget.expand && widget.option) Container(
-              margin: const EdgeInsets.all(20),
-              width: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    children: [
-                      const Text('Update', style: TextStyle(color: Colors.white, fontSize: 16)),
-                      Container(
-                        margin: const EdgeInsets.all(10),
-                        padding: const EdgeInsets.all(5),
-                        decoration: const BoxDecoration(
-                          color: Color(primaryColor),
-                          shape: BoxShape.circle,
-                        ),
-                        child: IconButton(
-                            onPressed: () => {},
-                            iconSize: 30,
-                            icon: const Icon(
-                                Icons.ac_unit_outlined,
-                                color: Colors.white
-                            )
-                        ),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      const Text('Add card', style: TextStyle(color: Colors.white, fontSize: 16)),
-                      Container(
-                        margin: const EdgeInsets.all(10),
-                        decoration: const BoxDecoration(
-                          color: Colors.white12,
-                          shape: BoxShape.circle,
-                        ),
-                        child: DottedBorder(
-                          borderType: BorderType.Circle,
-                          color: Colors.white,
-                          dashPattern: const [6, 6],
-                          strokeWidth: 2,
-                          strokeCap: StrokeCap.round,
+              if(widget.expand && widget.option) Container(
+                margin: const EdgeInsets.all(20),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.4),
+                    borderRadius: const BorderRadius.all(Radius.circular(25))
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(5),
+                          decoration: const BoxDecoration(
+                            color: Color(purple),
+                            shape: BoxShape.circle,
+                          ),
                           child: IconButton(
-                              onPressed: () => {},
-                              iconSize: 34,
+                              onPressed: () => {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoryScreen()))
+                              },
+                              iconSize: 30,
                               icon: const Icon(
-                                  Icons.add,
+                                  Icons.category_rounded,
                                   color: Colors.white
                               )
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      const Text('Info', style: TextStyle(color: Colors.white, fontSize: 16)),
-                      Container(
-                        margin: const EdgeInsets.all(5),
-                        padding: const EdgeInsets.all(5),
-                        decoration: const BoxDecoration(
-                          color: Color(primaryColor),
-                          shape: BoxShape.circle,
+                        const Text('Category', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700))
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(5),
+                          decoration: const BoxDecoration(
+                            color: Color(pBlue),
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                              onPressed: () => {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const PercentageScreen()))
+                              },
+                              iconSize: 30,
+                              icon: const Icon(
+                                  Icons.percent_rounded,
+                                  color: Colors.white
+                              )
+                          ),
                         ),
-                        child: IconButton(
-                            onPressed: () => {},
-                            iconSize: 30,
-                            icon: const Icon(
-                                Icons.info_outline_rounded,
-                                color: Colors.white
-                            )
+                        const Text('Percentage', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700))
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(5),
+                          decoration: const BoxDecoration(
+                            color: Color(lGreen),
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                              onPressed: () => {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const PriorityScreen()))
+                              },
+                              iconSize: 30,
+                              icon: const Icon(
+                                  Icons.sort_rounded,
+                                  color: Colors.white
+                              )
+                          ),
                         ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            )
-          ],
+                        const Text('Priority', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700))
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-    );
+      );
   }
 }
