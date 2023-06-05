@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "840387515882",
+    "project_id": "ocard-fp",
+    "storage_bucket": "ocard-fp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840387515882:android:6e3629749d64ee55c28e93",
+        "android_client_info": {
+          "package_name": "com.example.o_card"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_aKHeR99tErYY2xf7yGvlQRZqC8xPUCw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
