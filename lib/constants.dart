@@ -280,7 +280,10 @@ const blueLC = 0xFF0B03FA;
 const redLC = 0xFFC90031;
 const purpleLC = 0xFF8E00D2;
 const darkRedLC = 0xFF640018;
-
+const Texthintcolor = 0xFF3F3F3F;
+const Textcolor = 0xFF211E1E;
+const whiteColor = 0xFFFFFFFF;
+const buttonColor = 0xFF1E1B1B;
 
 // User
 const Map sourceOfIncome = {
