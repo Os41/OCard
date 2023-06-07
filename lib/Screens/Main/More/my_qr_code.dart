@@ -36,7 +36,6 @@ class _MyQrCodeState extends State<MyQrCode> {
         MediaQuery.of(context).padding.top -
         MediaQuery.of(context).padding.bottom -
         90;
-    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: SafeArea(

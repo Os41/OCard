@@ -4,7 +4,6 @@ import 'package:o_card/Screens/Main/Other/history_statistics.dart';
 import 'package:o_card/Screens/Main/Other/history_transactions.dart';
 import 'package:o_card/Widgets/purchased_row_button.dart';
 import 'package:provider/provider.dart';
-import '../constants.dart';
 import '../Models/card.dart';
 import '../Services/database.dart';
 import '../Services/utils.dart';

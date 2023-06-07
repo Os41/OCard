@@ -104,9 +104,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         BorderSide(width: 1.0, color: Colors.black12),
                                       ),
                                     ),
-                                    child: Row(
+                                    child: const Row(
                                       children: [
-                                        const SizedBox(
+                                        SizedBox(
                                           width: 100,
                                           height: 90,
                                           child: Image(
@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: const [
+                                          children: [
                                             Padding(
                                               padding: EdgeInsets.only(bottom: 8.0),
                                               child: Text(
@@ -155,9 +155,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         BorderSide(width: 1.0, color: Colors.black12),
                                       ),
                                     ),
-                                    child: Row(
+                                    child: const Row(
                                       children: [
-                                        const SizedBox(
+                                        SizedBox(
                                           width: 100,
                                           height: 90,
                                           child: Image(
@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: const [
+                                          children: [
                                             Padding(
                                               padding: EdgeInsets.only(bottom: 8.0),
                                               child: Text(
@@ -198,9 +198,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     DatabaseService(uid: user!.uid).updateUserData('shield', 3);
                                     Navigator.of(context).pop();
                                   },
-                                  child: Row(
+                                  child: const Row(
                                     children: [
-                                      const SizedBox(
+                                      SizedBox(
                                         width: 100,
                                         height: 90,
                                         child: Image(
@@ -210,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: const [
+                                        children: [
                                           Padding(
                                             padding: EdgeInsets.only(bottom: 8.0),
                                             child: Text(

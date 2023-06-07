@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:o_card/Services/database.dart';
 
 class AuthService {
 
@@ -32,30 +33,13 @@ class AuthService {
     }
   }
 
-  // create a new document for the user with the uid
-  // Future databaseSave(String fullName, String gender, String college, String role, String picture, String token) async {
-  //
-  //   try {
-  //     FirebaseUser user = await _auth.currentUser();
-  //     await DatabaseService(uid: user.uid).newUserData(fullName, gender, college, role, picture);
-  //     await DatabaseService(uid: user.uid).updateUserToken(token);
-  //     return user;
-  //   }
-  //   catch(e) {
-  //     print(e.toString());
-  //     return null;
-  //   }
-  // }
-
   // register with email & password
-  Future registerWithEmailAndPassword(String email, String password, String fullName, String gender, String college, String role, String picture) async {
+  Future registerWithEmailAndPassword(String email, String password) async {
     try {
       final result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       final user = result.user;
-
-      // await DatabaseService(uid: user.uid).newUserData(fullName, gender, college, role, picture);
-
-      return _userFromFirebase(user!);
+      DatabaseService(uid: user!.uid).addNewUserData(email);
+      return _userFromFirebase(user);
     }
     catch(e) {
       print(e.toString());

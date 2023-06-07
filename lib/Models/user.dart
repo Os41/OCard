@@ -8,7 +8,6 @@ class UserData {
   final String phoneNumber;
   final String dateOfBirth;
   final String passcode;
-  final String password;
   final String image;
   final String sourceOfIncome;
   final String incomeRange;
@@ -25,7 +24,6 @@ class UserData {
     required this.phoneNumber,
     required this.dateOfBirth,
     required this.passcode,
-    required this.password,
     required this.image,
     required this.sourceOfIncome,
     required this.incomeRange,
@@ -36,9 +34,6 @@ class UserData {
   });
 
   factory UserData.fromMap(Map<String, dynamic> map) {
-    if (map == null) {
-      throw ArgumentError('map cannot be null');
-    }
     final Map<String, dynamic> convertedCardsData = Map<String, dynamic>.from(map['cards']);
     final Map<String, dynamic> convertedOCardData = Map<String, dynamic>.from(map['o_card']);
 
@@ -50,7 +45,6 @@ class UserData {
       phoneNumber: map['phone_number'],
       dateOfBirth: map['date_of_birth'],
       passcode: map['passcode'],
-      password: map['password'],
       image: map['image'],
       sourceOfIncome: map['source_of_income'],
       incomeRange: map['income_range'],

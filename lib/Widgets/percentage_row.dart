@@ -73,7 +73,7 @@ class _PercentageRowState extends State<PercentageRow> {
                   fontSize: 18
               )
           ),
-          widget.isEdit ?
+          widget.isEdit && widget.initialValue.isNotEmpty ?
           Container(
             width: 70,
             height: 90,

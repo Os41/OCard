@@ -1,4 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../Models/card.dart';
+import '../../../Models/user.dart';
+import '../../../Services/database.dart';
 import '../../../constants.dart';
 import '../../../Services/utils.dart';
 import '../../../Widgets/percentage_row.dart';
@@ -11,11 +16,12 @@ class PriorityScreen extends StatefulWidget {
 }
 
 class _PriorityScreenState extends State<PriorityScreen> {
+  UserData? userData;
+  List<CreditCard> creditCards = [];
   bool isEdit = false;
   var _errorMessage = '';
-  List userColors = [purple, hGreen, bOrange, pBlue];
-  var userCards = List<String>.from(userAccount['cards']['priorities']);
-
+  List<String> userCards = [];
+  List<String> copiedUserCards = [];
 
   void reorderData(int oldIndex, int newIndex){
     setState(() {
@@ -27,8 +33,8 @@ class _PriorityScreenState extends State<PriorityScreen> {
         if(newIndex > oldIndex){
           newIndex -= 1;
         }
-        final items = userCards.removeAt(oldIndex);
-        userCards.insert(newIndex, items);
+        final items = copiedUserCards.removeAt(oldIndex);
+        copiedUserCards.insert(newIndex, items);
       });
     }else{
       setState(() {
@@ -39,16 +45,56 @@ class _PriorityScreenState extends State<PriorityScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User?>(context);
+    if(user != null){
+      DatabaseService(uid: user.uid).usersRef.child(user.uid).onValue.listen((event) {
+        final Map<dynamic, dynamic>? data =
+        event.snapshot.value as Map<dynamic, dynamic>?;
+        if (data != null) {
+          final Map<String, dynamic> convertedData =
+          Map<String, dynamic>.from(data);
+
+          final UserData formatData = UserData.fromMap(convertedData);
+          setState(() {
+            userData = formatData;
+          });
+        }
+      });
+      DatabaseService(uid: user.uid).cardsRef.onValue.listen((event) {
+        final Map<dynamic, dynamic>? data = event.snapshot.value as Map<dynamic, dynamic>?;
+        late List<CreditCard> formatData = [];
+
+        if (data != null) {
+          final Map<String, dynamic> convertedData = Map<String, dynamic>.from(data);
+
+          convertedData.forEach((key, value) {
+            final Map<String, dynamic> convertedCard = Map<String, dynamic>.from(value);
+            formatData.add(CreditCard.fromMap(convertedCard));
+          });
+
+          setState(() {
+            creditCards = formatData;
+          });
+        }
+      });
+      if(userData != null){
+        setState(() {
+          userCards = userData!.cards.priorities;
+        });
+      }
+    }
     Size size = MediaQuery.of(context).size;
     double screenHeight = size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom;
 
     return Scaffold(
+      backgroundColor: const Color(hGreen),
       body: SafeArea(
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
+                const Color(hGreen).withOpacity(0.6),
                 const Color(lGreen),
                 const Color(lGreen),
                 const Color(lGreen),
@@ -62,30 +108,54 @@ class _PriorityScreenState extends State<PriorityScreen> {
             children: [
               SizedBox(
                 width: double.infinity,
-                height: screenHeight * 0.15,
+                height: screenHeight * 0.23,
                 child: Column(
                   children: [
                     Container(
-                      width: double.infinity,
-                      alignment: Alignment.topRight,
-                      child: Container(
-                        margin: const EdgeInsets.all(10),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        child: IconButton(
-                            onPressed: () => {Navigator.pop(context)},
-                            iconSize: 24,
-                            icon: const Icon(Icons.arrow_forward_rounded)
-                        ),
-                      ),
+                        width: double.infinity,
+                        alignment: Alignment.topRight,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.all(10),
+                              child: IconButton(
+                                  onPressed: () => {},
+                                  iconSize: 24,
+                                  color: Colors.white.withOpacity(0),
+                                  icon: const Icon(Icons.arrow_forward_rounded)),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 30),
+                              width: 100,
+                              height: 100,
+                              child: const Image(
+                                image: AssetImage('assets/images/shields/Priority-shield.png'),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: IconButton(
+                                  onPressed: () => {Navigator.pop(context)},
+                                  iconSize: 24,
+                                  icon: const Icon(Icons.arrow_forward_rounded)),
+                            ),
+                          ],
+                        )
+
                     ),
-                    const Text(
-                      'Priority',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20
+                    const Padding(
+                      padding: EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        'Priority',
+                        style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
                       ),
                     ),
                   ],
@@ -93,13 +163,11 @@ class _PriorityScreenState extends State<PriorityScreen> {
               ),
               Container(
                 width: double.infinity,
-                height: screenHeight * 0.85,
+                height: screenHeight * 0.75,
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(35),
-                    topRight: Radius.circular(35),
-                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(35)),
                 ),
                 child: Column(
                   children: [
@@ -114,10 +182,11 @@ class _PriorityScreenState extends State<PriorityScreen> {
                               setState(() {
                                 _errorMessage = '';
                                 isEdit = !isEdit;
+                                copiedUserCards = isEdit ? List.from(userCards) : [];
                               })
                             },
-                            child: Row(
-                              children: const [
+                            child: const Row(
+                              children: [
                                 Icon(
                                   Icons.edit_rounded,
                                   color: Color(green),
@@ -141,16 +210,14 @@ class _PriorityScreenState extends State<PriorityScreen> {
                               color: Color(green),
                               shape: BoxShape.circle,
                             ),
-                            child: IconButton(
+                            child: isEdit ? SizedBox() : IconButton(
                                 onPressed: () {
                                   setState(() {
                                     _errorMessage = '';
                                   });
-
-                                  if (userCards.length < 4) {
-                                    var data = userAccount['cards'];
-                                    List missingCid = findMissingCids(data);
-
+                                  if (userData!.cards.priorities.length < 4) {
+                                    CardList data = userData!.cards;
+                                    List<String> missingCid = findMissingCid(data.cardsId, data.priorities);
                                     showDialog( context: context, builder: (BuildContext context) {
                                       return AlertDialog(
                                         title: const Text('Add card'),
@@ -161,15 +228,17 @@ class _PriorityScreenState extends State<PriorityScreen> {
                                               scrollDirection: Axis.vertical,
                                               itemCount: missingCid.length,
                                               itemBuilder: (BuildContext context, int index) {
-                                                var card = cards[missingCid[index]];
                                                 return PercentageRow(
-                                                    cardNumber: getCardNumberFormat(card['card_number'].toString()),
-                                                    nickname: getInitials(card['cardholder_name']),
+                                                    cardNumber: getCardNumberOrName(creditCards, missingCid[index], false),
+                                                    nickname: getCardNumberOrName(creditCards, missingCid[index], true),
                                                     isEdit: false,
                                                     isAdd: true,
                                                     initialValue: '',
                                                     color: secondaryColor,
-                                                    onPressed: () {}
+                                                    onPressed: () {
+                                                      DatabaseService(uid: user!.uid).addPrioritiesCard(missingCid[index]);
+                                                      Navigator.of(context).pop();
+                                                    }
                                                 );
                                               },
                                             )
@@ -177,8 +246,7 @@ class _PriorityScreenState extends State<PriorityScreen> {
                                         actions: <Widget>[
                                           MaterialButton(
                                             onPressed: () {
-                                              Navigator.of(context)
-                                                  .pop();
+                                              Navigator.of(context).pop();
                                             },
                                             child: const Text('Close'),
                                           ),
@@ -211,9 +279,9 @@ class _PriorityScreenState extends State<PriorityScreen> {
                               BorderSide(width: 1.0, color: Colors.black12),
                             ),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
+                            children: [
                               Text(
                                 'Name',
                                 style: TextStyle(
@@ -244,16 +312,18 @@ class _PriorityScreenState extends State<PriorityScreen> {
                       child: ReorderableListView(
                         onReorder: reorderData,
                         children: <Widget>[
-                          for(final item in userCards)
+                          for (int i = 0; i < (isEdit ? copiedUserCards.length : userCards.length); i++)
                             PercentageRow(
-                                key: ValueKey(item),
-                                cardNumber: getCardNumberFormat(cards[item]['card_number'].toString()),
-                                nickname: getInitials(cards[item]['cardholder_name']),
-                                isEdit: false,
+                                key: ValueKey(i),
+                                cardNumber: getCardNumberOrName(creditCards, isEdit ? copiedUserCards[i] : userCards[i], false),
+                                nickname: getCardNumberOrName(creditCards, isEdit ? copiedUserCards[i] : userCards[i], true),
+                                isEdit: isEdit,
                                 initialValue: '',
                                 controller: null,
-                                color: userColors[0],
-                                onPressed: () {}
+                                color: pBlue,
+                                onPressed: () {
+                                  copiedUserCards.removeAt(i);
+                                }
                             ),
                         ],
                       ),
@@ -271,19 +341,20 @@ class _PriorityScreenState extends State<PriorityScreen> {
                               MaterialButton(
                                 onPressed: () => {
                                   setState(() {
+                                    _errorMessage = '';
                                     isEdit = !isEdit;
+                                    copiedUserCards = isEdit ? List.from(userCards) : [];
                                   })
                                 },
                                 child: const Text('Cancel'),
                               ),
                               MaterialButton(
                                 onPressed: () {
+                                  DatabaseService(uid: user!.uid).updatePrioritiesList(copiedUserCards.isEmpty ? [''] : copiedUserCards);
                                   setState(() {
                                     _errorMessage = '';
-                                  });
-                                  print('Changed perfectly');
-                                  setState(() {
                                     isEdit = !isEdit;
+                                    copiedUserCards = [];
                                   });
                                 },
                                 color: const Color(lGreen),

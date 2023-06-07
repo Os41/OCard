@@ -57,11 +57,11 @@ class _PurchaseByCardState extends State<PurchaseByCard> {
     }
 
     return Scaffold(
-      backgroundColor: const Color(secondaryColor),
+      backgroundColor: const Color(gBlack),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
-          color: const Color(secondaryColor),
+          color: const Color(gBlack),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -82,13 +82,22 @@ class _PurchaseByCardState extends State<PurchaseByCard> {
                         icon: const Icon(Icons.arrow_forward_ios_rounded)
                     ),
                   ),
-                  CreditCardWidget(
+                  if(userData != null)
+                    CreditCardWidget(
                       cardNumber: userData!.oCard.cardNumber,
                       expirationDate: ExpirationDate(month: userData!.oCard.expirationDate.month, year: userData!.oCard.expirationDate.year),
                       cvv: userData!.oCard.cvv,
                       cardholderName: userData!.fullName,
                       styleNumber: randomNumber,
                       isCopy: false
+                  ),
+                  const Center(
+                    child: Image(
+                      image: AssetImage('assets/images/searching.gif'),
+                      width: double.infinity,
+                      height: 170,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ],
               ),

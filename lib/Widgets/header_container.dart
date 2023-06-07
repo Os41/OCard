@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:o_card/Models/user.dart';
 import 'package:o_card/Screens/Main/Home/percentage_screen.dart';
+import 'package:provider/provider.dart';
+import '../Services/database.dart';
 import '../constants.dart';
 import '../Models/card.dart';
 import '../Screens/Main/Home/category_screen.dart';
@@ -13,17 +15,37 @@ class HeaderContainer extends StatefulWidget {
   final String title;
   final UserData? userData;
   final User? user;
-  final List<CreditCard>? creditCards;
-  const HeaderContainer({Key? key, required this.title, required this.expand, required this.option, this.userData, this.user, this.creditCards}) : super(key: key);
+  const HeaderContainer({Key? key, required this.title, required this.expand, required this.option, this.userData, this.user}) : super(key: key);
 
   @override
   State<HeaderContainer> createState() => _HeaderContainerState();
 }
 
 class _HeaderContainerState extends State<HeaderContainer>{
+  List<CreditCard> creditCards = [];
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User?>(context);
+    if(user != null){
+      DatabaseService(uid: user.uid).cardsRef.onValue.listen((event) {
+        final Map<dynamic, dynamic>? data = event.snapshot.value as Map<dynamic, dynamic>?;
+        late List<CreditCard> formatData = [];
+
+        if (data != null) {
+          final Map<String, dynamic> convertedData = Map<String, dynamic>.from(data);
+
+          convertedData.forEach((key, value) {
+            final Map<String, dynamic> convertedCard = Map<String, dynamic>.from(value);
+            formatData.add(CreditCard.fromMap(convertedCard));
+          });
+
+          setState(() {
+            creditCards = formatData;
+          });
+        }
+      });
+    }
     Size size = MediaQuery.of(context).size;
     double screenHeight = size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom - 90;
     String headerStyle = widget.option ? 'L-HeaderStyle.png' : widget.expand ? 'M-HeaderStyle.png' : 'S-HeaderStyle.png';
@@ -85,7 +107,7 @@ class _HeaderContainerState extends State<HeaderContainer>{
                                 onTap: () => {},
                                 child: ClipOval(
                                   child: Image(
-                                    image: AssetImage(userAccount['image']),
+                                    image: AssetImage(widget.userData!.image),
                                     width: 60.0,
                                     height: 60.0,
                                     fit: BoxFit.cover,
@@ -116,7 +138,7 @@ class _HeaderContainerState extends State<HeaderContainer>{
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Text(
                           getTotalBalance(
-                              fetchTotalBalance(widget.user!.uid, widget.creditCards!)
+                              fetchTotalBalance(widget.user!.uid, creditCards)
                           ),
                           style: const TextStyle(
                             fontSize: 34,
