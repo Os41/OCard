@@ -1,4 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../Models/card.dart';
+import '../../../Models/user.dart';
+import '../../../Services/database.dart';
 import '../../../constants.dart';
 import '../../../Services/utils.dart';
 import '../../../Widgets/percentage_bar.dart';
@@ -12,6 +17,10 @@ class PercentageScreen extends StatefulWidget {
 }
 
 class _PercentageScreenState extends State<PercentageScreen> {
+  UserData? userData;
+  List<CreditCard> creditCards = [];
+  List<Percentage>? userCards = [];
+  List<Percentage> copiedUserCards = [];
   bool isEdit = false;
   var _errorMessage = '';
   TextEditingController card1Controller = TextEditingController(text: '0');
@@ -22,20 +31,79 @@ class _PercentageScreenState extends State<PercentageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final user = Provider.of<User?>(context);
+    if (user != null) {
+      DatabaseService(uid: user.uid).usersRef
+          .child(user.uid)
+          .onValue
+          .listen((event) {
+        final Map<dynamic, dynamic>? data =
+        event.snapshot.value as Map<dynamic, dynamic>?;
+        if (data != null) {
+          final Map<String, dynamic> convertedData =
+          Map<String, dynamic>.from(data);
+
+          final UserData formatData = UserData.fromMap(convertedData);
+          setState(() {
+            userData = formatData;
+          });
+        }
+      });
+      DatabaseService(uid: user.uid).cardsRef.onValue.listen((event) {
+        final Map<dynamic, dynamic>? data = event.snapshot.value as Map<
+            dynamic,
+            dynamic>?;
+        late List<CreditCard> formatData = [];
+
+        if (data != null) {
+          final Map<String, dynamic> convertedData = Map<String, dynamic>.from(
+              data);
+
+          convertedData.forEach((key, value) {
+            final Map<String, dynamic> convertedCard = Map<String,
+                dynamic>.from(value);
+            formatData.add(CreditCard.fromMap(convertedCard));
+          });
+
+          setState(() {
+            creditCards = formatData;
+          });
+        }
+      });
+      if (userData != null) {
+        setState(() {
+          userCards = userData!.cards.percentages;
+        });
+      }
+    }
+    Size size = MediaQuery
+        .of(context)
+        .size;
     double screenHeight = size.height -
-        MediaQuery.of(context).padding.top -
-        MediaQuery.of(context).padding.bottom;
-    var userCards = userAccount['cards']['percentages'];
-    List userCardsController = [card1Controller, card2Controller, card3Controller, card4Controller];
+        MediaQuery
+            .of(context)
+            .padding
+            .top -
+        MediaQuery
+            .of(context)
+            .padding
+            .bottom;
+    List userCardsController = [
+      card1Controller,
+      card2Controller,
+      card3Controller,
+      card4Controller
+    ];
 
     return Scaffold(
+      backgroundColor: const Color(seaBlue),
       body: SafeArea(
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
+                const Color(seaBlue).withOpacity(0.6),
                 const Color(pBlue),
                 const Color(pBlue),
                 const Color(pBlue),
@@ -49,42 +117,71 @@ class _PercentageScreenState extends State<PercentageScreen> {
             children: [
               SizedBox(
                 width: double.infinity,
-                height: screenHeight * 0.2,
+                height: screenHeight * 0.23,
                 child: Column(
                   children: [
                     Container(
-                      width: double.infinity,
-                      alignment: Alignment.topRight,
-                      child: Container(
-                        margin: const EdgeInsets.all(10),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        child: IconButton(
-                            onPressed: () => {Navigator.pop(context)},
-                            iconSize: 24,
-                            icon: const Icon(Icons.arrow_forward_rounded)),
+                        width: double.infinity,
+                        alignment: Alignment.topRight,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.all(10),
+                              child: IconButton(
+                                  onPressed: () => {},
+                                  iconSize: 24,
+                                  color: Colors.white.withOpacity(0),
+                                  icon: const Icon(
+                                      Icons.arrow_forward_rounded)),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 30),
+                              width: 100,
+                              height: 100,
+                              child: const Image(
+                                image: AssetImage(
+                                    'assets/images/shields/Percentage-shield.png'),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: IconButton(
+                                  onPressed: () => {Navigator.pop(context)},
+                                  iconSize: 24,
+                                  icon: const Icon(
+                                      Icons.arrow_forward_rounded)),
+                            ),
+                          ],
+                        )
+
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        'Percentage',
+                        style:
+                        TextStyle(fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.white),
                       ),
-                    ),
-                    const Text(
-                      'Percentage',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    PercentageBar(percentageList: userCards),
+                    )
                   ],
                 ),
               ),
               Container(
                 width: double.infinity,
-                height: screenHeight * 0.8,
+                height: screenHeight * 0.75,
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(35),
-                    topRight: Radius.circular(35),
-                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(35)),
                 ),
                 child: Column(
                   children: [
@@ -95,13 +192,16 @@ class _PercentageScreenState extends State<PercentageScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MaterialButton(
-                            onPressed: () => {
+                            onPressed: () =>
+                            {
                               setState(() {
+                                _errorMessage = '';
                                 isEdit = !isEdit;
+                                copiedUserCards = (isEdit ? userCards : [])!;
                               })
                             },
-                            child: Row(
-                              children: const [
+                            child: const Row(
+                              children: [
                                 Icon(
                                   Icons.edit_rounded,
                                   color: Color(darkBlue),
@@ -125,79 +225,100 @@ class _PercentageScreenState extends State<PercentageScreen> {
                               color: Color(blue),
                               shape: BoxShape.circle,
                             ),
-                            child: IconButton(
+                            child: isEdit ? IconButton(
                                 onPressed: () {
                                   setState(() {
                                     _errorMessage = '';
                                   });
-
-                                  if (userCards.length < 4) {
-                                    var data = userAccount['cards'];
-                                    List missingCid = findMissingCids(data);
-
-                                    showDialog( context: context, builder: (BuildContext context) {
+                                  if (copiedUserCards.length < 4) {
+                                    CardList data = userData!.cards;
+                                    List<
+                                        String> missingCid = findMissingCidPercentage(
+                                        data.cardsId, data.percentages);
+                                    showDialog(context: context,
+                                        builder: (BuildContext context) {
                                           return AlertDialog(
                                             title: const Text('Add card'),
                                             content: SizedBox(
-                                              height: 350,
-                                              width: 600,
-                                              child: ListView.builder(
-                                                scrollDirection: Axis.vertical,
-                                                itemCount: missingCid.length,
-                                                itemBuilder: (BuildContext context, int index) {
-                                                  var card = cards[missingCid[index]];
-                                                  return PercentageRow(
-                                                      cardNumber: getCardNumberFormat(card['card_number'].toString()),
-                                                      nickname: getInitials(card['cardholder_name']),
-                                                      isEdit: false,
-                                                      isAdd: true,
-                                                      initialValue: '',
-                                                      color: secondaryColor,
-                                                      onPressed: () {}
-                                                  );
-                                                },
-                                              )
+                                                height: 350,
+                                                width: 600,
+                                                child: ListView.builder(
+                                                  scrollDirection: Axis
+                                                      .vertical,
+                                                  itemCount: missingCid.length,
+                                                  itemBuilder: (
+                                                      BuildContext context,
+                                                      int index) {
+                                                    return PercentageRow(
+                                                        cardNumber: getCardNumberOrName(
+                                                            creditCards,
+                                                            missingCid[index],
+                                                            false),
+                                                        nickname: getCardNumberOrName(
+                                                            creditCards,
+                                                            missingCid[index],
+                                                            true),
+                                                        isEdit: false,
+                                                        isAdd: true,
+                                                        initialValue: '',
+                                                        color: secondaryColor,
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            var newCard = Percentage(
+                                                                cid: missingCid[index],
+                                                                percentage: 0);
+                                                            copiedUserCards.add(
+                                                                newCard);
+                                                          });
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        }
+                                                    );
+                                                  },
+                                                )
                                             ),
                                             actions: <Widget>[
                                               MaterialButton(
                                                 onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pop();
+                                                  Navigator.of(context).pop();
                                                 },
                                                 child: const Text('Close'),
                                               ),
                                             ],
                                           );
-                                    });
+                                        });
                                   }
                                   else {
-                                      setState(() {
-                                        _errorMessage = 'You can not add more than 4 cards';
-                                      });
+                                    setState(() {
+                                      _errorMessage =
+                                      'You can not add more than 4 cards';
+                                    });
                                   }
                                 },
                                 iconSize: 30,
                                 icon: const Icon(
                                   Icons.add_card_rounded,
                                   color: Colors.white,
-                                )),
+                                )) : SizedBox(),
                           ),
                         ],
                       ),
                     ),
+                    isEdit ? PercentageBar(controllerList: userCardsController) :
+                    PercentageBar(percentageList: userCards),
                     Center(
                       child: Container(
-                          margin: const EdgeInsets.fromLTRB(20, 5, 20, 0),
+                          margin: const EdgeInsets.fromLTRB(20, 35, 20, 0),
                           padding: const EdgeInsets.only(bottom: 15),
                           decoration: const BoxDecoration(
                             border: Border(
                               bottom:
-                                  BorderSide(width: 1.0, color: Colors.black12),
+                              BorderSide(width: 1.0, color: Colors.black12),
                             ),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
+                            children: [
                               Text(
                                 'Name',
                                 style: TextStyle(
@@ -224,20 +345,29 @@ class _PercentageScreenState extends State<PercentageScreen> {
                     ),
                     SizedBox(
                         width: double.infinity,
-                        height: 400,
+                        height: 370,
                         child: ListView.builder(
                           scrollDirection: Axis.vertical,
-                          itemCount: userCards.length,
+                          itemCount: isEdit
+                              ? copiedUserCards.length
+                              : userCards!.length,
                           itemBuilder: (BuildContext context, int index) {
-                            var card = cards[userCards[index]['cid']];
+                            var cardRow = isEdit
+                                ? copiedUserCards[index]
+                                : userCards![index];
                             return PercentageRow(
-                                cardNumber: getCardNumberFormat(card['card_number'].toString()),
-                                nickname: getInitials(card['cardholder_name']),
+                                cardNumber: getCardNumberOrName(
+                                    creditCards, cardRow.cid, false),
+                                nickname: getCardNumberOrName(
+                                    creditCards, cardRow.cid, true),
                                 isEdit: isEdit,
-                                initialValue: userCards[index]['percentage'].toString(),
+                                initialValue: cardRow.percentage.toString(),
                                 controller: userCardsController[index],
                                 color: userColors[index],
-                                onPressed: () {}
+                                onPressed: () {
+                                  copiedUserCards.removeAt(index);
+                                  userCardsController[index].text = '0';
+                                }
                             );
                           },
                         )),
@@ -245,74 +375,93 @@ class _PercentageScreenState extends State<PercentageScreen> {
                         color: Color(hRed)
                     ),),
                     if (isEdit) Center(
-                            child: Container(
-                                margin: const EdgeInsets.all(20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    MaterialButton(
-                                      onPressed: () => {
-                                        setState(() {
-                                          isEdit = !isEdit;
-                                        })
-                                      },
-                                      child: const Text('Cancel'),
-                                    ),
-                                    MaterialButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          _errorMessage = '';
-                                        });
+                      child: Container(
+                          child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceEvenly,
+                            children: [
+                              MaterialButton(
+                                onPressed: () =>
+                                {
+                                  setState(() {
+                                    _errorMessage = '';
+                                    isEdit = !isEdit;
+                                    copiedUserCards = [];
+                                  })
+                                },
+                                child: const Text('Cancel'),
+                              ),
+                              MaterialButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _errorMessage = '';
+                                  });
+                                  var sum = 0;
+                                  var checkValidation = true;
+                                  for (var cardController in userCardsController) {
+                                    if (cardController.text.length > 0) {
+                                      sum += int.parse(cardController.text);
+                                    }
+                                  }
 
-                                        var sum = 0;
-                                        var checkValidation = true;
+                                  for (int i = 0; i <
+                                      copiedUserCards.length; i++) {
+                                    if (userCardsController[i].text.length >
+                                        0) {
+                                      int num = int.parse(
+                                          userCardsController[i].text);
+                                      if (num <= 0) {
+                                        checkValidation = false;
+                                      }
+                                    } else {
+                                      checkValidation = false;
+                                    }
+                                  }
 
-                                        for(var cardController in userCardsController){
-                                          if(cardController.text.length > 0){
-                                            sum += int.parse(cardController.text);
-                                          }
-                                        }
-
-                                        for(int i = 0; i < userCards.length; i++){
-                                          if(userCardsController[i].text.length > 0){
-                                            int num = int.parse(userCardsController[i].text);
-                                            if(num <= 0){
-                                              checkValidation = false;
-                                            }
-                                          }else{
-                                            checkValidation = false;
-                                          }
-                                        }
-
-                                        if(sum<100){
-                                          setState(() {
-                                            _errorMessage = 'The sum of all these percentages should be 100.';
-                                          });
-                                        }else if(sum > 100){
-                                          setState(() {
-                                            _errorMessage = 'The sum of all these percentages should not be more than 100.';
-                                          });
-                                        }else if(!checkValidation){
-                                          setState(() {
-                                            _errorMessage = 'Each card should have more than 0 percentage.';
-                                          });
-                                        }else{
-                                          print('Changed perfectly');
-                                          setState(() {
-                                            isEdit = !isEdit;
-                                          });
-                                        }
-                                      },
-                                      color: const Color(darkPurple),
-                                      child: const Text(
-                                        'Change',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
-                                  ],
-                                )),
-                          ) else const SizedBox()
+                                  if (sum < 100) {
+                                    setState(() {
+                                      _errorMessage =
+                                      'The sum of all these percentages should be 100.';
+                                    });
+                                  } else if (sum > 100) {
+                                    setState(() {
+                                      _errorMessage =
+                                      'sum these percentages should not be more than 100.';
+                                    });
+                                  } else if (!checkValidation) {
+                                    setState(() {
+                                      _errorMessage =
+                                      'Each card should have more than 0 percentage.';
+                                    });
+                                  } else {
+                                    for (int i = 0; i <
+                                        copiedUserCards.length; i++) {
+                                      if (userCardsController[i].text.length >
+                                          0) {
+                                        int num = int.parse(
+                                            userCardsController[i].text);
+                                        copiedUserCards[i].setPercentage(num);
+                                      }
+                                    }
+                                    DatabaseService(uid: user!.uid)
+                                        .updatePercentagesList(copiedUserCards.isEmpty ? [] : copiedUserCards);
+                                    setState(() {
+                                      _errorMessage = '';
+                                      isEdit = !isEdit;
+                                      copiedUserCards = [];
+                                    });
+                                  }
+                                },
+                                color: const Color(darkPurple),
+                                child: const Text(
+                                  'Change',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          )),
+                    ) else
+                      const SizedBox()
                   ],
                 ),
               ),

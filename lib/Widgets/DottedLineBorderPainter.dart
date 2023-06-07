@@ -19,7 +19,7 @@ class DottedLineBorderPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     const double dashWidth = 4;
-    final double dashSpace = dotSpacing - dashWidth;
+    // final double dashSpace = dotSpacing - dashWidth;
 
     double distance = 0;
     while (distance < size.width) {

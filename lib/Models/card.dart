@@ -78,9 +78,6 @@ class CardList{
   });
 
   factory CardList.fromMap(Map<String, dynamic> map) {
-    if (map == null) {
-      throw ArgumentError('map cannot be null');
-    }
     final Map<String, dynamic> convertedData = Map<String, dynamic>.from(map['categories']);
 
     return CardList(
@@ -91,7 +88,7 @@ class CardList{
     );
   }
 
-  static List<Percentage> _parsePercentages(List<dynamic> percentages) {
+  static List<Percentage>? _parsePercentages(List<dynamic> percentages) {
     return percentages.map((item) {
       return Percentage(
         cid: item['cid'],
@@ -103,12 +100,23 @@ class CardList{
 
 class Percentage {
   final String cid;
-  final int percentage;
+  int percentage;
 
   Percentage({
     required this.cid,
     required this.percentage,
   });
+
+  void setPercentage(int num){
+    percentage = num;
+  }
+
+  Map<String, dynamic> toJson(){
+    return {
+      'cid': cid,
+      'percentage': percentage
+    };
+  }
 }
 
 class Category {

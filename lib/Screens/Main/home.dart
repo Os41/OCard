@@ -2,7 +2,6 @@ import 'package:diamond_bottom_bar/diamond_bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:o_card/constants.dart';
-import 'package:o_card/Models/card.dart';
 import 'package:o_card/Screens/Main/Card/cards_screen.dart';
 import 'package:o_card/Screens/Main/More/more_screen.dart';
 import '../../Models/user.dart';
@@ -13,13 +12,12 @@ class Home extends StatefulWidget {
   final Function toggleView;
   final User user;
   final UserData? userData;
-  final List<CreditCard>? creditCards;
 
   const Home(
       {Key? key,
       required this.toggleView,
       required this.user,
-      required this.userData, this.creditCards})
+      required this.userData})
       : super(key: key);
 
   @override
@@ -69,7 +67,6 @@ class _HomeState extends State<Home> {
                           option: myHeaders[_selectedIndex]['isOption'],
                           userData: widget.userData,
                           user: widget.user,
-                          creditCards: widget.creditCards
                       ),
                       _selectedWidget,
                     ],

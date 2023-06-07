@@ -51,6 +51,7 @@ dependencies:
   image_picker: ^0.8.3
   gallery_saver: ^2.1.2
   screenshot: ^2.1.0
+  flutter_spinkit: ^5.2.0
 
 
 dev_dependencies:

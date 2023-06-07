@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:o_card/Services/auth.dart';
-import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import 'about_one_card.dart';
 import 'cashback.dart';
@@ -22,7 +20,6 @@ class MoreScreen extends StatefulWidget {
 class _MoreScreenState extends State<MoreScreen> {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User?>(context);
     Size size = MediaQuery
         .of(context)
         .size;
