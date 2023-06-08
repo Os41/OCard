@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:o_card/Models/card.dart';
+import '../Models/expiration_date.dart';
 import '../Services/utils.dart';
 
 class CreditCardWidget extends StatelessWidget {

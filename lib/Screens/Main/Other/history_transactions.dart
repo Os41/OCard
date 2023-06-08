@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../Models/transaction.dart';
 import '../../../constants.dart';
-import '../../../Models/card.dart';
 import '../../../Services/database.dart';
 import '../../../Widgets/purchased_row_button.dart';
 import 'transaction_details.dart';

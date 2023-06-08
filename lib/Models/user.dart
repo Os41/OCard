@@ -1,4 +1,5 @@
-import 'card.dart';
+import 'card_list.dart';
+import 'o_card.dart';
 
 class UserData {
   final String uid;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:o_card/Models/card.dart';
+import '../Models/percentage.dart';
 import '../constants.dart';
 import '../Services/utils.dart';
 

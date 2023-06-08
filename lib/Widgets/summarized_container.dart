@@ -4,7 +4,7 @@ import 'package:o_card/Screens/Main/Other/history_statistics.dart';
 import 'package:o_card/Screens/Main/Other/history_transactions.dart';
 import 'package:o_card/Widgets/purchased_row_button.dart';
 import 'package:provider/provider.dart';
-import '../Models/card.dart';
+import '../Models/transaction.dart';
 import '../Services/database.dart';
 import '../Services/utils.dart';
 
@@ -51,9 +51,7 @@ class _SummarizedContainerState extends State<SummarizedContainer> {
 
       if (transactionsData.isNotEmpty) {
         setState(() {
-          filteredTransactions = cutList(transactionsData
-              .where((transaction) => transaction.uid == user.uid)
-              .toList());
+          filteredTransactions = cutList(transactionsData.where((transaction) => transaction.uid == user.uid).toList());
         });
       }
     }

@@ -5,7 +5,7 @@ import 'package:o_card/Screens/Main/Home/percentage_screen.dart';
 import 'package:provider/provider.dart';
 import '../Services/database.dart';
 import '../constants.dart';
-import '../Models/card.dart';
+import '../Models/credit_card.dart';
 import '../Screens/Main/Home/category_screen.dart';
 import '../Screens/Main/Home/priority_screen.dart';
 import '../Services/utils.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../Widgets/PrivacyPolicy.dart';
 import '../../../constants.dart';
 import '../../../Widgets/Logo.dart';
 
@@ -69,7 +70,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                     border: Border.all(width: 2, color: Colors.black54),
                     borderRadius: const BorderRadius.all(Radius.circular(25)),
                   ),
-                  child: const PrivacyPolicy(),
+                  child: const PrivacyPolicyW(),
                 ),
                 const SizedBox(
                   height: 20,

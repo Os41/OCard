@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:o_card/constants.dart';
-import 'package:o_card/Models/card.dart';
+import 'package:o_card/Models/credit_card.dart';
 import 'package:o_card/Services/database.dart';
 import 'package:provider/provider.dart';
 
+import '../../../Models/expiration_date.dart';
 import '../../../Services/utils.dart';
 import '../../../Widgets/credit_card.dart';
 
