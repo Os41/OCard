@@ -1,7 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:o_card/Models/card.dart';
 import 'package:o_card/Screens/Main/Card/add_card.dart';
+import '../Models/expiration_date.dart';
 import '../constants.dart';
 import '../Screens/Main/Card/card_details.dart';
 import '../Services/utils.dart';

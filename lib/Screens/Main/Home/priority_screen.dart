@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../Models/card.dart';
+import '../../../Models/credit_card.dart';
 import '../../../Models/user.dart';
 import '../../../Services/database.dart';
 import '../../../constants.dart';

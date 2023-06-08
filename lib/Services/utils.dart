@@ -1,6 +1,9 @@
 import 'dart:math';
 import 'package:intl/intl.dart';
-import '../Models/card.dart';
+import '../Models/category.dart';
+import '../Models/credit_card.dart';
+import '../Models/percentage.dart';
+import '../Models/transaction.dart';
 
 double fetchTotalBalance(String uid, List<CreditCard> creditCards) {
   double totalBalance = 0.0;

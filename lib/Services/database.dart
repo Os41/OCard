@@ -1,7 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:o_card/Models/card.dart';
+import 'package:o_card/Models/credit_card.dart';
 import 'package:o_card/Services/utils.dart';
+
+import '../Models/percentage.dart';
 
 class DatabaseService {
   final String uid;
