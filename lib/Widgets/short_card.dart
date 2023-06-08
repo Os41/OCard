@@ -144,11 +144,11 @@ class AddShortCard extends StatelessWidget {
           strokeWidth: 2,
           strokeCap: StrokeCap.round,
           radius:  const Radius.circular(35),
-          child: SizedBox(
+          child: const SizedBox(
             width: double.infinity,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Icon(Icons.add_card_rounded, color: Color(secondaryColor), size: 30,),
                 Text(
                   'Add new card',

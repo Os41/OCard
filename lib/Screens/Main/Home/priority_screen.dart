@@ -210,7 +210,7 @@ class _PriorityScreenState extends State<PriorityScreen> {
                               color: Color(green),
                               shape: BoxShape.circle,
                             ),
-                            child: isEdit ? SizedBox() : IconButton(
+                            child: isEdit ? const SizedBox() : IconButton(
                                 onPressed: () {
                                   setState(() {
                                     _errorMessage = '';

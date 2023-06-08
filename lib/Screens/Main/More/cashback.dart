@@ -88,15 +88,15 @@ class _CashbackState extends State<Cashback> {
                 Center(
                   child: Row(
                     children: [
-                      TextShowCach(
+                      TextShowCash(
                         width: screenWidth / 3.6,
                         label: '''Pending\nCash back\n49.44''',
                       ),
-                      TextShowCach(
+                      TextShowCash(
                         width: screenWidth / 3.6,
                         label: '''Confirme\nCash back\n49.44''',
                       ),
-                      TextShowCach(
+                      TextShowCash(
                         width: screenWidth / 3.6,
                         label: '''Paid\nCash back\n49.44''',
                       ),
@@ -109,7 +109,7 @@ class _CashbackState extends State<Cashback> {
                 ButtonApp(
                   label: 'Withdraw your Cashback',
                   onSaveButtonPressed: () {
-                    print("Withdraw your Cashback button pressd");
+                    // print("Withdraw your Cashback button pressd");
                   },
                 ),
                 const SizedBox(

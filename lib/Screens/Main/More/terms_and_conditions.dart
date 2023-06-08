@@ -61,7 +61,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                     ),
                   ),
                 ),
-                const logo(),
+                const Logo(),
                 Container(
                   width: screenWidth - 15,
                   height: screenHeight - (screenHeight / 4),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class TextApp extends StatelessWidget {
-  TextApp({
+  TextApp({super.key,
     required this.lable,
   });
   String lable = "";

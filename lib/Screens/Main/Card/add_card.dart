@@ -349,7 +349,7 @@ class _AddCardState extends State<AddCard> {
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                           width: 250,
                           height: 50,
                           child: MaterialButton(

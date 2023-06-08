@@ -63,18 +63,18 @@ class DatabaseService {
       'source_of_income': "other",
       'uid': uid
     }).then((value) {
-      print('Added user data successfully');
+      // print('Added user data successfully');
     }).catchError((error) {
-      print('Failed to update user: $error');
+      // print('Failed to update user: $error');
     });
   }
   void updateUserData(String key, dynamic value) {
     usersRef.child(uid).update({
       key: value,
     }).then((value) {
-      print('User $key updated successfully');
+      // print('User $key updated successfully');
     }).catchError((error) {
-      print('Failed to update user: $error');
+      // print('Failed to update user: $error');
     });
 
   }
@@ -82,9 +82,9 @@ class DatabaseService {
     usersRef.child('$uid/cards/cards_id').update({
       '$number': newCard.cid,
     }).then((value) {
-      print('User Card id updated successfully');
+      // print('User Card id updated successfully');
     }).catchError((error) {
-      print('Failed to update user: $error');
+      // print('Failed to update user: $error');
     });
     
     cardsRef.child(newCard.cid).set({
@@ -104,9 +104,9 @@ class DatabaseService {
       'credit_limit': newCard.creditLimit,
       'transactions': newCard.transactions
     }).then((value) {
-      print('Cards updated successfully');
+      // print('Cards updated successfully');
     }).catchError((error) {
-      print('Failed to update user: $error');
+      // print('Failed to update user: $error');
     });
 
     Navigator.pop(context);
@@ -118,9 +118,9 @@ class DatabaseService {
     modifiedArray.removeWhere((item) => item == cid);
 
     usersRef.child('$uid/cards/cards_id').set(modifiedArray).then((value) {
-      print('User Card id updated successfully');
+      // print('User Card id updated successfully');
     }).catchError((error) {
-      print('Failed to update user: $error');
+      // print('Failed to update user: $error');
     });
 
     Navigator.pop(context);
@@ -130,9 +130,9 @@ class DatabaseService {
   // Priorities
   void updatePrioritiesList(List<String> cardsList) async {
     usersRef.child('$uid/cards/priorities').set(cardsList).then((value) {
-      print('User Card priorities updated successfully');
+      // print('User Card priorities updated successfully');
     }).catchError((error) {
-      print('Failed to update user: $error');
+      // print('Failed to update user: $error');
     });
   }
   void addPrioritiesCard(String cid) async {
@@ -145,18 +145,18 @@ class DatabaseService {
     usersRef.child('$uid/cards/priorities').update({
       '${modifiedArray.length}': cid
     }).then((value) {
-      print('User Card priorities updated successfully');
+      // print('User Card priorities updated successfully');
     }).catchError((error) {
-      print('Failed to update user: $error');
+      // print('Failed to update user: $error');
     });
   }
 
   // Categories
   void updateCategoriesTypeList(List<String> cardsList, String type) async {
     usersRef.child('$uid/cards/categories/$type').set(cardsList).then((value) {
-      print('User Card categories $type updated successfully');
+      // print('User Card categories $type updated successfully');
     }).catchError((error) {
-      print('Failed to update user: $error');
+      // print('Failed to update user: $error');
     });
   }
   void addCategoriesTypeCard(String cid, String type) async {
@@ -168,9 +168,9 @@ class DatabaseService {
     usersRef.child('$uid/cards/categories/$type').update({
       '${modifiedArray.length}': cid
     }).then((value) {
-      print('User Card categories $type updated successfully');
+      // print('User Card categories $type updated successfully');
     }).catchError((error) {
-      print('Failed to update user: $error');
+      // print('Failed to update user: $error');
     });
   }
 
@@ -178,9 +178,9 @@ class DatabaseService {
   void updatePercentagesList(List<Percentage> cardsList) async {
     List jsonList = cardsList.map((card) => card.toJson()).toList();
     usersRef.child('$uid/cards/percentages').set(jsonList).then((value) {
-      print('User Card percentages updated successfully');
+      // print('User Card percentages updated successfully');
     }).catchError((error) {
-      print('Failed to update user: $error');
+      // print('Failed to update user: $error');
     });
   }
 }

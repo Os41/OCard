@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TextFelidSApp extends StatelessWidget {
-  TextFelidSApp({
+class TextFieldSApp extends StatelessWidget {
+  TextFieldSApp({super.key,
     required this.lable,
     required this.hint,
   });
