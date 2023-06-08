@@ -151,7 +151,7 @@ class _HeaderContainerState extends State<HeaderContainer>{
                 ),
               ),
               if(widget.expand && widget.option) Container(
-                margin: const EdgeInsets.all(20),
+                margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                 width: double.infinity,
                 decoration: BoxDecoration(

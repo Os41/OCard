@@ -55,7 +55,7 @@ String getInitials(String cardholderName) {
 List calculateValues(List<Percentage>? data) {
   return data!.map((item) {
     double percentage = item.percentage / 100;
-    return 300 * percentage;
+    return 270 * percentage;
   }).toList();
 }
 
@@ -82,7 +82,7 @@ List calculateValuesController(List? data) {
     if(item.text.length > 0) {
       percentage = int.parse(item.text) / 100;
     }
-    return 300 * percentage;
+    return 270 * percentage;
   }).toList();
 }
 
@@ -264,6 +264,46 @@ List<String> getCategoryType(Category? data, int type) {
     }
   }
   return [];
+}
+
+Category? copyCategoryType(Category filteredCategory, int index, List<String> filteredList) {
+    switch (index) {
+      case 0:
+        return filteredCategory.copyWith(food: filteredList);
+      case 1:
+        return filteredCategory.copyWith(drinks: filteredList);
+      case 2:
+        return filteredCategory.copyWith(groceries: filteredList);
+      case 3:
+        return filteredCategory.copyWith(transportation: filteredList);
+      case 4:
+        return filteredCategory.copyWith(entertainment: filteredList);
+      case 5:
+        return filteredCategory.copyWith(education: filteredList);
+      case 6:
+        return filteredCategory.copyWith(health: filteredList);
+      case 7:
+        return filteredCategory.copyWith(shopping: filteredList);
+      case 8:
+        return filteredCategory.copyWith(home: filteredList);
+      case 9:
+        return filteredCategory.copyWith(utilities: filteredList);
+      case 10:
+        return filteredCategory.copyWith(inAppPurchases: filteredList);
+      case 11:
+        return filteredCategory.copyWith(financial: filteredList);
+      case 12:
+        return filteredCategory.copyWith(charitable: filteredList);
+      case 13:
+        return filteredCategory.copyWith(gifts: filteredList);
+      case 14:
+        return filteredCategory.copyWith(taxes: filteredList);
+      case 15:
+        return filteredCategory.copyWith(miscellaneous: filteredList);
+      default:
+        break;
+    }
+    return null;
 }
 
 String getCardNumberOrName(

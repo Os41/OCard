@@ -64,7 +64,7 @@ class _CardDetailsState extends State<CardDetails> {
           backgroundColor: const Color(secondaryColor)),
       body: userCard == null ? const Center(child: Text('Loading'))
       : Container(
-        padding: const EdgeInsets.fromLTRB(8, 10, 8, 30),
+        padding: const EdgeInsets.fromLTRB(8, 10, 8, 50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -77,7 +77,9 @@ class _CardDetailsState extends State<CardDetails> {
                     cvv: userCard!.cvv,
                     cardholderName: userCard!.cardholderName,
                     styleNumber: widget.styleNumber,
-                    isCopy: true),
+                    isCopy: true,
+                  isSmall: false,
+                ),
                 Container(
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     alignment: Alignment.center,
@@ -95,8 +97,8 @@ class _CardDetailsState extends State<CardDetails> {
                           color: Color(secondaryColor)),
                     )),
                 Container(
-                  height: 400,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  height: 300,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,7 +183,7 @@ class _CardDetailsState extends State<CardDetails> {
                                   color: Color(secondaryColor)),
                               children: [
                                 TextSpan(
-                                    text: '${userCard!.transactions.length}',
+                                    text: '${userCard!.transactions.where((item) => item.isNotEmpty).toList().length}',
                                     style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.normal,

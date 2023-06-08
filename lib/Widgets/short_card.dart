@@ -25,7 +25,7 @@ class ShortCard extends StatelessWidget {
         Navigator.push(context, MaterialPageRoute(builder: (context) => CardDetails(cid: cid, styleNumber: styleNumber)))
       },
       child: Container(
-        width: 180,
+        width: 175,
         height: double.infinity,
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         decoration: const BoxDecoration(

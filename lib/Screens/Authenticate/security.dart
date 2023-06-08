@@ -62,22 +62,27 @@ class _SecurityState extends State<Security> {
       }
     } else {
       return Scaffold(
+        backgroundColor: const Color(gBlack),
         body: Center(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SpinKitFadingCircle(
-              color: Color(secondaryColor),
-              size: 70.0,
+            const Center(
+              child: Image(
+                image: AssetImage('assets/images/searching.gif'),
+                width: double.infinity,
+                height: 170,
+                fit: BoxFit.contain,
+              ),
             ),
             const Padding(
               padding: EdgeInsets.only(top: 30),
               child: Text(
                 'Loading...',
                 style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 23,
                     fontWeight: FontWeight.w700,
-                    color: Color(secondaryColor)),
+                    color: Colors.white),
               ),
             ),
             Container(

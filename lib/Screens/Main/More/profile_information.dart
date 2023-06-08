@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../Models/user.dart';
 import '../../../constants.dart';
 import '../../../Widgets/MaterialButton.dart';
 import '../../../Widgets/TextViwe.dart';
@@ -6,7 +7,8 @@ import '../../../Widgets/text_felid.dart';
 import '../../../Widgets/text_felid_smole.dart';
 
 class ProfileInformation extends StatefulWidget {
-  const ProfileInformation({Key? key}) : super(key: key);
+  final UserData? userData;
+  const ProfileInformation({Key? key, this.userData}) : super(key: key);
 
   @override
   State<ProfileInformation> createState() => _ProfileInformationState();
@@ -71,8 +73,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 Container(
                   width: 150,
                   height: 150.0,
-                  child: const Image(
-                    image: AssetImage('assets/images/Omar.jpg'),
+                  child: Image(
+                    image: AssetImage(widget.userData!.image),
                     width: 120,
                     height: 120.0,
                     fit: BoxFit.cover,
@@ -86,7 +88,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 ),
                 TextFelidApp(
                   icon: const Icon(Icons.person),
-                  hint: 'Omare Saad',
+                  hint: widget.userData!.fullName,
                 ),
                 SizedBox(
                   width: screenWidth,
@@ -96,7 +98,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 ),
                 TextFelidApp(
                   icon: const Icon(Icons.numbers),
-                  hint: '1001001010',
+                  hint: widget.userData!.puid,
                 ),
                 Container(
                   padding: const EdgeInsets.all(1.0),
@@ -128,7 +130,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                         width: screenWidth * 0.4,
                         child: TextFelidSApp(
                           lable: 'PIN',
-                          hint: '******',
+                          hint: widget.userData!.passcode,
                         ),
                       ),
                       SizedBox(
@@ -159,7 +161,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 ),
                 TextFelidApp(
                   icon: const Icon(Icons.phone),
-                  hint: '966500000000',
+                  hint: widget.userData!.phoneNumber,
                 ),
                 const SizedBox(
                   height: 20,

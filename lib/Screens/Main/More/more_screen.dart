@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:o_card/Services/auth.dart';
+import 'package:provider/provider.dart';
+import '../../../Models/user.dart';
+import '../../../Services/database.dart';
 import '../../../constants.dart';
 import 'about_one_card.dart';
 import 'cashback.dart';
@@ -18,8 +22,26 @@ class MoreScreen extends StatefulWidget {
 }
 
 class _MoreScreenState extends State<MoreScreen> {
+  UserData? userData;
+
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User?>(context);
+    if(user != null){
+      DatabaseService(uid: user.uid).usersRef.child(user.uid).onValue.listen((event) {
+        final Map<dynamic, dynamic>? data =
+        event.snapshot.value as Map<dynamic, dynamic>?;
+        if (data != null) {
+          final Map<String, dynamic> convertedData =
+          Map<String, dynamic>.from(data);
+
+          final UserData formatData = UserData.fromMap(convertedData);
+          setState(() {
+            userData = formatData;
+          });
+        }
+      });
+    }
     Size size = MediaQuery
         .of(context)
         .size;
@@ -45,12 +67,12 @@ class _MoreScreenState extends State<MoreScreen> {
                   OptionButton(onPressed: () =>
                   {
                     Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => const ProfileInformation()))
+                        builder: (context) => ProfileInformation(userData: userData)))
                   }, buttonText: profileInformation, iconData: Icons.person),
                   OptionButton(onPressed: () =>
                   {
                     Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => const MyQrCode()))
+                        builder: (context) => MyQrCode(userData: userData)))
                   }, buttonText: myQrCode, iconData: Icons.qr_code),
                   OptionButton(onPressed: () =>
                   {
@@ -68,7 +90,7 @@ class _MoreScreenState extends State<MoreScreen> {
                   OptionButton(onPressed: () =>
                   {
                     Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => const HelpAndSupport()))
+                        builder: (context) => HelpAndSupport(userData: userData)))
                   },
                       buttonText: helpAndSupport,
                       iconData: Icons.support_agent_rounded),

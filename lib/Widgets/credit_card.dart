@@ -10,6 +10,7 @@ class CreditCardWidget extends StatelessWidget {
   final String cardholderName;
   final int styleNumber;
   final bool isCopy;
+  final bool isSmall;
 
   const CreditCardWidget(
       {Key? key,
@@ -18,14 +19,14 @@ class CreditCardWidget extends StatelessWidget {
       required this.cvv,
       required this.cardholderName,
       required this.styleNumber,
-      required this.isCopy})
+      required this.isCopy, required this.isSmall})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 240,
+      height: 210,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
           image: DecorationImage(

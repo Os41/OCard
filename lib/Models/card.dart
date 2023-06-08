@@ -177,6 +177,44 @@ class Category {
       miscellaneous: List<String>.from(map['miscellaneous']),
     );
   }
+
+  Category copyWith({
+     List<String>? food,
+     List<String>? drinks,
+     List<String>? groceries,
+     List<String>? transportation,
+     List<String>? entertainment,
+     List<String>? education,
+     List<String>? health,
+     List<String>? shopping,
+     List<String>? home,
+     List<String>? utilities,
+     List<String>? inAppPurchases,
+     List<String>? financial,
+     List<String>? charitable,
+     List<String>? gifts,
+     List<String>? taxes,
+     List<String>? miscellaneous
+  }) {
+    return Category(
+      food: food ?? this.food,
+      drinks: drinks ?? this.drinks,
+      groceries: groceries ?? this.groceries,
+      transportation: transportation ?? this.transportation,
+      entertainment: entertainment ?? this.entertainment,
+      education: education ?? this.education,
+      health: health ?? this.health,
+      shopping: shopping ?? this.shopping,
+      home: home ?? this.home,
+      utilities: utilities ?? this.utilities,
+      inAppPurchases: inAppPurchases ?? this.inAppPurchases,
+      financial: financial ?? this.financial,
+      charitable: charitable ?? this.charitable,
+      gifts: gifts ?? this.gifts,
+      taxes: taxes ?? this.taxes,
+      miscellaneous: miscellaneous ?? this.miscellaneous
+    );
+  }
 }
 
 class Transaction {

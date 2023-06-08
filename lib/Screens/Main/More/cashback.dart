@@ -34,7 +34,7 @@ class _CashbackState extends State<Cashback> {
                   child: Container(
                     margin: const EdgeInsets.all(5),
                     width: double.infinity,
-                    height: screenHeight * 0.24,
+                    height: screenHeight * 0.20,
                     decoration: const BoxDecoration(
                         color: Color(secondaryColor),
                         borderRadius: BorderRadius.all(Radius.circular(35))),
@@ -85,30 +85,22 @@ class _CashbackState extends State<Cashback> {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
-                  child: Center(
-                    child: Row(
-                      children: [
-                        Container(
-                          child: TextShowCach(
-                            width: screenWidth / 3.6,
-                            label: '''Pending\nCash back\n49.44''',
-                          ),
-                        ),
-                        Container(
-                          child: TextShowCach(
-                            width: screenWidth / 3.6,
-                            label: '''Confirmed\nCash back\n49.44''',
-                          ),
-                        ),
-                        Container(
-                          child: TextShowCach(
-                            width: screenWidth / 3.6,
-                            label: '''Paid\nCash back\n49.44''',
-                          ),
-                        ),
-                      ],
-                    ),
+                Center(
+                  child: Row(
+                    children: [
+                      TextShowCach(
+                        width: screenWidth / 3.6,
+                        label: '''Pending\nCash back\n49.44''',
+                      ),
+                      TextShowCach(
+                        width: screenWidth / 3.6,
+                        label: '''Confirme\nCash back\n49.44''',
+                      ),
+                      TextShowCach(
+                        width: screenWidth / 3.6,
+                        label: '''Paid\nCash back\n49.44''',
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(
@@ -123,14 +115,11 @@ class _CashbackState extends State<Cashback> {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
+                SizedBox(
                   width: screenWidth,
-                  height: screenHeight / 2,
-                  child: CashBackList(),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
+                  height: screenHeight / 1.8,
+                  child: const CashBackList(),
+                )
               ],
             ),
           ),
