@@ -138,7 +138,9 @@ class DatabaseService {
   void addPrioritiesCard(String cid) async {
     DataSnapshot cards = await usersRef.child(uid).get();
     Object? prioritiesList = cards.child('cards/priorities').value;
-    List<dynamic> modifiedArray = (prioritiesList as Iterable<dynamic>).toList();
+    List<dynamic> modifiedArray = (prioritiesList as Iterable<dynamic>)
+        .where((item) => item.isNotEmpty)
+        .toList();
 
     usersRef.child('$uid/cards/priorities').update({
       '${modifiedArray.length}': cid
@@ -160,7 +162,8 @@ class DatabaseService {
   void addCategoriesTypeCard(String cid, String type) async {
     DataSnapshot cards = await usersRef.child(uid).get();
     Object? prioritiesList = cards.child('cards/categories/$type').value;
-    List<dynamic> modifiedArray = (prioritiesList as Iterable<dynamic>).toList();
+    List<dynamic> modifiedArray = (prioritiesList as Iterable<dynamic>).where((item) => item.isNotEmpty)
+        .toList();
 
     usersRef.child('$uid/cards/categories/$type').update({
       '${modifiedArray.length}': cid

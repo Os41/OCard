@@ -94,7 +94,7 @@ class _InviteFriendState extends State<InviteFriend> {
                           ),
                         ),
                         width: screenWidth - (screenWidth / 4),
-                        padding: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.only(left: 8),
                         child: Row(
                           children: [
                             Container(
@@ -102,7 +102,7 @@ class _InviteFriendState extends State<InviteFriend> {
                               child: const Text(
                                 overflow: TextOverflow.ellipsis,
                                 "USER_ ID ********",
-                                style: TextStyle(fontSize: 30.0),
+                                style: TextStyle(fontSize: 24.0),
                               ),
                             ),
                             IconButton(
@@ -110,7 +110,7 @@ class _InviteFriendState extends State<InviteFriend> {
                               icon: const Icon(
                                 Icons.content_copy,
                                 color: Colors.orange,
-                                size: 35,
+                                size: 30,
                               ),
                             ),
                           ],
@@ -120,8 +120,8 @@ class _InviteFriendState extends State<InviteFriend> {
                         width: screenWidth / 30,
                       ),
                       Container(
-                        width: screenWidth / 6,
-                        height: 68,
+                        width: screenWidth / 7,
+                        height: 60,
                         decoration: BoxDecoration(
                           color: Colors.orangeAccent,
                           border: Border.all(
@@ -137,7 +137,7 @@ class _InviteFriendState extends State<InviteFriend> {
                             icon: const Icon(
                               Icons.share,
                               color: Colors.white,
-                              size: 35,
+                              size: 30,
                             ),
                           ),
                         ),

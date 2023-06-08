@@ -25,7 +25,7 @@ class PercentageBar extends StatelessWidget {
         ),
         Container(
           margin: const EdgeInsets.only(top: 5),
-          width: 300,
+          width: 270,
           height: 20,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),

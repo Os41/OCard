@@ -79,7 +79,8 @@ class _PriorityScreenState extends State<PriorityScreen> {
       });
       if(userData != null){
         setState(() {
-          userCards = userData!.cards.priorities;
+          List<String> filteredList = userData!.cards.priorities.where((item) => item.isNotEmpty).toList();
+          userCards = filteredList;
         });
       }
     }
@@ -172,8 +173,7 @@ class _PriorityScreenState extends State<PriorityScreen> {
                 child: Column(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -216,8 +216,8 @@ class _PriorityScreenState extends State<PriorityScreen> {
                                     _errorMessage = '';
                                   });
                                   if (userData!.cards.priorities.length < 4) {
-                                    CardList data = userData!.cards;
-                                    List<String> missingCid = findMissingCid(data.cardsId, data.priorities);
+                                    List<String> data = userData!.cards.cardsId.where((item) => item.isNotEmpty).toList();
+                                    List<String> missingCid = findMissingCid(data, userCards);
                                     showDialog( context: context, builder: (BuildContext context) {
                                       return AlertDialog(
                                         title: const Text('Add card'),
@@ -308,7 +308,7 @@ class _PriorityScreenState extends State<PriorityScreen> {
                     ),
                     SizedBox(
                       width: double.infinity,
-                      height: 400,
+                      height: 380,
                       child: ReorderableListView(
                         onReorder: reorderData,
                         children: <Widget>[
@@ -333,7 +333,7 @@ class _PriorityScreenState extends State<PriorityScreen> {
                     ),),
                     if (isEdit) Center(
                       child: Container(
-                          margin: const EdgeInsets.all(20),
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                           child: Row(
                             mainAxisAlignment:
                             MainAxisAlignment.spaceEvenly,

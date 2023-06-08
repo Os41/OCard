@@ -7,13 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:screenshot/screenshot.dart';
+import '../../../Models/user.dart';
 import '../../../constants.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import '../../../Widgets/MaterialButton.dart';
 import '../../../Widgets/TextViwe.dart';
 
 class MyQrCode extends StatefulWidget {
-  const MyQrCode({Key? key}) : super(key: key);
+  final UserData? userData;
+  const MyQrCode({Key? key, this.userData}) : super(key: key);
 
   @override
   State<MyQrCode> createState() => _MyQrCodeState();
@@ -21,8 +23,9 @@ class MyQrCode extends StatefulWidget {
 
 class _MyQrCodeState extends State<MyQrCode> {
   ScreenshotController screenshotController = ScreenshotController();
-  GlobalKey _globalKey = GlobalKey();
+  final GlobalKey _globalKey = GlobalKey();
 
+  @override
   void initState() {
     super.initState();
 
@@ -83,11 +86,11 @@ class _MyQrCodeState extends State<MyQrCode> {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
+                SizedBox(
                   width: 150,
                   height: 150.0,
-                  child: const Image(
-                    image: AssetImage('assets/images/Omar.jpg'),
+                  child: Image(
+                    image: AssetImage(widget.userData!.image),
                     width: 120,
                     height: 120.0,
                     fit: BoxFit.cover,
@@ -99,14 +102,14 @@ class _MyQrCodeState extends State<MyQrCode> {
                 SizedBox(
                   height: 60,
                   child: TextApp(
-                    lable: 'Name',
+                    lable: widget.userData!.fullName,
                   ),
                 ),
                 Screenshot(
                   controller: screenshotController,
                   child: Center(
                     child: QrImageView(
-                      data: 'This QR code has an embedded image as well',
+                      data: widget.userData!.email,
                       version: QrVersions.auto,
                       size: 250,
                       gapless: false,
@@ -125,7 +128,6 @@ class _MyQrCodeState extends State<MyQrCode> {
                     label: 'Save To camera roll',
                     onSaveButtonPressed: () {
                       _saveScreen;
-                      print('Save To camera roll button pressed');
                     },
                   ),
                 ),
@@ -143,7 +145,6 @@ class _MyQrCodeState extends State<MyQrCode> {
     ].request();
 
     final info = statuses[Permission.storage].toString();
-    print(info);
     _toastInfo(info);
   }
 
@@ -151,12 +152,10 @@ class _MyQrCodeState extends State<MyQrCode> {
     RenderRepaintBoundary boundary =
         _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
     ui.Image image = await boundary.toImage();
-    ByteData? byteData = await (image.toByteData(format: ui.ImageByteFormat.png)
-        as FutureOr<ByteData?>);
+    ByteData? byteData = await (image.toByteData(format: ui.ImageByteFormat.png));
     if (byteData != null) {
       final result =
           await ImageGallerySaver.saveImage(byteData.buffer.asUint8List());
-      print(result);
       _toastInfo(result.toString());
     }
   }

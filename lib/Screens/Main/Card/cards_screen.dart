@@ -84,7 +84,7 @@ class _CardsScreenState extends State<CardsScreen> {
         children: [
           Container(
             width: double.infinity,
-            height: userCards.isNotEmpty ? 240 : 100,
+            height: userCards.isNotEmpty ? 240 : 0,
             margin: const EdgeInsets.symmetric(vertical: 5),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -103,9 +103,7 @@ class _CardsScreenState extends State<CardsScreen> {
           ),
           userData != null
               ? AddShortCard(cid: creditCards.length, ucid: userData!.cards.cardsId.length)
-              : const Center(
-                  child: Text('Loading...'),
-                ),
+              : const SizedBox(),
           const SummarizedContainer(
               headerText: 'Spending history',
               footerText: 'See all transactions'),

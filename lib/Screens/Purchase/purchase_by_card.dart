@@ -89,7 +89,8 @@ class _PurchaseByCardState extends State<PurchaseByCard> {
                       cvv: userData!.oCard.cvv,
                       cardholderName: userData!.fullName,
                       styleNumber: randomNumber,
-                      isCopy: false
+                      isCopy: false,
+                      isSmall: false,
                   ),
                   const Center(
                     child: Image(

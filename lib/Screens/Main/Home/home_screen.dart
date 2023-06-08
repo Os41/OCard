@@ -43,15 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return SizedBox(
       width: double.infinity,
-      height: 350,
+      height: 310,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Container(
-              width: 190,
-              height: 350,
-              margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+              width: 170,
+              height: 320,
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               decoration: const BoxDecoration(
                 color: Color(secondaryColor),
@@ -86,8 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return AlertDialog(
                           title: const Text('Select type'),
                           content: SizedBox(
-                            height: 350,
-                            width: 600,
+                            height: 330,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -104,17 +102,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                         BorderSide(width: 1.0, color: Colors.black12),
                                       ),
                                     ),
-                                    child: const Row(
+                                    child: Row(
                                       children: [
-                                        SizedBox(
-                                          width: 100,
+                                        Container(
+                                          width: 80,
                                           height: 90,
-                                          child: Image(
+                                          padding: const EdgeInsets.only(right: 20),
+                                          child: const Image(
                                             image: AssetImage('assets/images/shields/Category-shield.png'),
                                             fit: BoxFit.contain,
                                           ),
                                         ),
-                                        Column(
+                                        const Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Padding(
@@ -155,17 +154,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                         BorderSide(width: 1.0, color: Colors.black12),
                                       ),
                                     ),
-                                    child: const Row(
+                                    child: Row(
                                       children: [
-                                        SizedBox(
-                                          width: 100,
+                                        Container(
+                                          width: 80,
                                           height: 90,
-                                          child: Image(
+                                          padding: const EdgeInsets.only(right: 20),
+                                          child: const Image(
                                             image: AssetImage('assets/images/shields/Percentage-shield.png'),
                                             fit: BoxFit.contain,
                                           ),
                                         ),
-                                        Column(
+                                        const Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Padding(
@@ -198,17 +198,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                     DatabaseService(uid: user!.uid).updateUserData('shield', 3);
                                     Navigator.of(context).pop();
                                   },
-                                  child: const Row(
+                                  child: Row(
                                     children: [
-                                      SizedBox(
-                                        width: 100,
+                                      Container(
+                                        width: 80,
                                         height: 90,
-                                        child: Image(
+                                        padding: const EdgeInsets.only(right: 20),
+                                        child: const Image(
                                           image: AssetImage('assets/images/shields/Priority-shield.png'),
                                           fit: BoxFit.contain,
                                         ),
                                       ),
-                                      Column(
+                                      const Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Padding(
@@ -275,9 +276,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Container(
-              width: 190,
-              height: 350,
-              margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+              width: 170,
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               decoration: const BoxDecoration(
                   color: Color(secondaryColor),

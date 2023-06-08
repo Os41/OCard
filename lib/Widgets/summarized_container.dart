@@ -95,7 +95,7 @@ class _SummarizedContainerState extends State<SummarizedContainer> {
           ),
           SizedBox(
               width: double.infinity,
-              height: 350,
+              height: filteredTransactions.isNotEmpty ? 350 : 90,
               child: filteredTransactions.isNotEmpty
                   ? ListView.builder(
                       scrollDirection: Axis.vertical,
@@ -115,38 +115,41 @@ class _SummarizedContainerState extends State<SummarizedContainer> {
                   : const Center(
                       child: Text('No Transactions'),
                     )),
-          Container(
-            width: double.infinity,
-            padding:
-                const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20.0),
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
-              border: Border(
-                top: BorderSide(width: 1.0, color: Colors.black26),
-              ),
-            ),
-            child: GestureDetector(
-              onTap: () => {
-                widget.footerText.contains('transactions')
-                    ? Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HistoryTransactions()))
-                    : widget.footerText.contains('statistics')
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const HistoryStatistics()))
-                        : null
-              },
-              child: Text(
-                widget.footerText,
-                style: const TextStyle(
-                    fontSize: 16.0, fontWeight: FontWeight.w700),
-              ),
-            ),
-          ),
+          filteredTransactions.isNotEmpty
+              ? Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 5.0, vertical: 20.0),
+                  alignment: Alignment.center,
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      top: BorderSide(width: 1.0, color: Colors.black26),
+                    ),
+                  ),
+                  child: GestureDetector(
+                    onTap: () => {
+                      widget.footerText.contains('transactions')
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const HistoryTransactions()))
+                          : widget.footerText.contains('statistics')
+                              ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const HistoryStatistics()))
+                              : null
+                    },
+                    child: Text(
+                      widget.footerText,
+                      style: const TextStyle(
+                          fontSize: 16.0, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                )
+              : SizedBox(),
         ],
       ),
     );

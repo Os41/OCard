@@ -120,7 +120,9 @@ class _AddCardState extends State<AddCard> {
                             cvv: _securityCode,
                             cardholderName: _cardHolderName,
                             styleNumber: randomNumber,
-                            isCopy: false),
+                            isCopy: false,
+                          isSmall: true,
+                        ),
                       ),
                       Center(
                         child: Container(
@@ -129,7 +131,7 @@ class _AddCardState extends State<AddCard> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 10),
+                                  padding: EdgeInsets.only(top: 10),
                                   child: Text(
                                     'Card holder name',
                                     style: TextStyle(
@@ -172,7 +174,7 @@ class _AddCardState extends State<AddCard> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 10),
+                                  padding: EdgeInsets.only(top: 10),
                                   child: Text(
                                     'Card number',
                                     style: TextStyle(
@@ -220,8 +222,7 @@ class _AddCardState extends State<AddCard> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 10),
+                                      padding: EdgeInsets.only(top: 10),
                                       child: Text(
                                         'Security code',
                                         style: TextStyle(
@@ -262,8 +263,7 @@ class _AddCardState extends State<AddCard> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 10),
+                                      padding: EdgeInsets.only(top: 10),
                                       child: Text(
                                         'Expiration date',
                                         style: TextStyle(
@@ -352,7 +352,6 @@ class _AddCardState extends State<AddCard> {
                       Container(
                           width: 250,
                           height: 50,
-                          margin: const EdgeInsets.only(top: 20),
                           child: MaterialButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {

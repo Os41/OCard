@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CashBackList extends StatelessWidget {
+  const CashBackList({super.key});
+
   @override
   Widget build(BuildContext context) {
     final itemList = [

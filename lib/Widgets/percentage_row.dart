@@ -35,7 +35,7 @@ class _PercentageRowState extends State<PercentageRow> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 100,
+      height: 90,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -51,7 +51,7 @@ class _PercentageRowState extends State<PercentageRow> {
               icon: const Icon(Icons.remove_rounded),
             ),
           ) else Container(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               color: Color(widget.color),
               shape: BoxShape.circle,
@@ -70,7 +70,7 @@ class _PercentageRowState extends State<PercentageRow> {
               style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   color: Color(secondaryColor),
-                  fontSize: 18
+                  fontSize: 16
               )
           ),
           widget.isEdit && widget.initialValue.isNotEmpty ?

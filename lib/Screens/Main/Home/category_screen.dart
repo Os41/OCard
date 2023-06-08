@@ -88,7 +88,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
       });
       if (userData != null) {
         setState(() {
-          userCards = userData!.cards.categories;
+          Category filteredCategory = Category(food: [], drinks: [], groceries: [], transportation: [], entertainment: [], education: [], health: [], shopping: [], home: [], utilities: [], inAppPurchases: [], financial: [], charitable: [], gifts: [], taxes: [], miscellaneous: []);
+          for(var i = 0; i < 16; i++){
+            List<String> filteredList = getCategoryType(userData!.cards.categories, i).where((item) => item.isNotEmpty).toList();
+            filteredCategory = copyCategoryType(filteredCategory, i, filteredList)!;
+          }
+          userCards = filteredCategory;
         });
       }
     }
@@ -242,17 +247,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         setState(() {
                                           _errorMessage = '';
                                         });
-                                        if (getCategoryType(
-                                                    userCards, headerLabel)
-                                                .length <
-                                            4) {
-                                          CardList data = userData!.cards;
-                                          List<String> missingCid =
-                                              findMissingCid(
-                                                  data.cardsId,
-                                                  getCategoryType(
-                                                      data.categories,
-                                                      headerLabel));
+                                        if (getCategoryType(userCards, headerLabel).length < 4) {
+                                          List<String> data = userData!.cards.cardsId.where((item) => item.isNotEmpty).toList();
+                                          List<String> missingCid = findMissingCid(data, getCategoryType(userCards, headerLabel));
                                           showDialog(
                                               context: context,
                                               builder: (BuildContext context) {
@@ -377,7 +374,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     ),
                     SizedBox(
                       width: double.infinity,
-                      height: 400,
+                      height: 350,
                       child: ReorderableListView(
                         onReorder: reorderData,
                         children: <Widget>[
@@ -424,7 +421,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           if (isEdit)
                             Center(
                               child: Container(
-                                  margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                                  margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,

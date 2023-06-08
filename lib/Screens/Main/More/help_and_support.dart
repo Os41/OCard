@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../Models/user.dart';
 import '../../../constants.dart';
 import '../../../Widgets/MaterialButton.dart';
 import '../../../Widgets/TextViwe.dart';
@@ -6,7 +7,8 @@ import '../../../Widgets/text_felid.dart';
 import '../../../Widgets/text_felid_big.dart';
 
 class HelpAndSupport extends StatefulWidget {
-  const HelpAndSupport({Key? key}) : super(key: key);
+  final UserData? userData;
+  const HelpAndSupport({Key? key, this.userData}) : super(key: key);
 
   @override
   State<HelpAndSupport> createState() => _HelpAndSupportState();
@@ -73,7 +75,7 @@ class _HelpAndSupportState extends State<HelpAndSupport> {
                 ),
                 TextFelidApp(
                   icon: const Icon(Icons.person),
-                  hint: 'Omare Saad',
+                  hint: widget.userData!.fullName,
                 ),
                 SizedBox(
                   width: screenWidth,
@@ -98,12 +100,12 @@ class _HelpAndSupportState extends State<HelpAndSupport> {
                   height: 15,
                 ),
                 Container(
-                  padding: const EdgeInsets.only(left: 30),
+                  padding: const EdgeInsets.only(left: 10),
                   child: Row(
                     children: [
                       const Icon(
                         Icons.call,
-                        size: 40,
+                        size: 28,
                       ),
                       ButtonApp(
                         label: 'KSA Supoort',
@@ -118,12 +120,12 @@ class _HelpAndSupportState extends State<HelpAndSupport> {
                   height: 15,
                 ),
                 Container(
-                  padding: const EdgeInsets.only(left: 30),
+                  padding: const EdgeInsets.only(left: 10),
                   child: Row(
                     children: [
                       const Icon(
                         Icons.call,
-                        size: 40,
+                        size: 28,
                       ),
                       ButtonApp(
                         label: 'International Supoort',
