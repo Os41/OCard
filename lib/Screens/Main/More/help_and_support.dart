@@ -73,7 +73,7 @@ class _HelpAndSupportState extends State<HelpAndSupport> {
                     lable: 'Name',
                   ),
                 ),
-                TextFelidApp(
+                TextFieldApp(
                   icon: const Icon(Icons.person),
                   hint: widget.userData!.fullName,
                 ),
@@ -83,7 +83,7 @@ class _HelpAndSupportState extends State<HelpAndSupport> {
                     lable: 'Your proplem',
                   ),
                 ),
-                TextFelidbApp(
+                TextFieldBApp(
                   hint:
                       'Write the problem details with\n\na maximum of 500 characters',
                 ),
@@ -92,7 +92,7 @@ class _HelpAndSupportState extends State<HelpAndSupport> {
                   child: ButtonApp(
                     label: 'Send ticite',
                     onSaveButtonPressed: () {
-                      print('Send ticket button pressed');
+                      // print('Send ticket button pressed');
                     },
                   ),
                 ),
@@ -110,7 +110,7 @@ class _HelpAndSupportState extends State<HelpAndSupport> {
                       ButtonApp(
                         label: 'KSA Supoort',
                         onSaveButtonPressed: () {
-                          print('KSA Supoort button pressed');
+                          // print('KSA Supoort button pressed');
                         },
                       ),
                     ],
@@ -130,7 +130,7 @@ class _HelpAndSupportState extends State<HelpAndSupport> {
                       ButtonApp(
                         label: 'International Supoort',
                         onSaveButtonPressed: () {
-                          print('International Supoort button pressed');
+                          // print('International Supoort button pressed');
                         },
                       ),
                     ],

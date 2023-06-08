@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class ButtonApp extends StatelessWidget {
   final String label;
   final VoidCallback onSaveButtonPressed;
 
-  const ButtonApp({
+  const ButtonApp({super.key,
     required this.label,
     required this.onSaveButtonPressed,
   });

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class TextShow extends StatelessWidget {
-  TextShow({
+  TextShow({super.key,
     required this.label,
     required this.width,
   });

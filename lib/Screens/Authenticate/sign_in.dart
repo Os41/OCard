@@ -78,7 +78,7 @@ class _SignInState extends State<SignIn> {
                       ),
                       Container(
                         alignment: Alignment.center,
-                        padding: EdgeInsets.only(top: 40),
+                        padding: const EdgeInsets.only(top: 40),
                         child: const Image(
                           image: AssetImage('assets/images/logo/logo-big.png'),
                           height: 120,
@@ -87,134 +87,133 @@ class _SignInState extends State<SignIn> {
                       ),
                     ],
                   )),
-              Container(
-                  child: Column(
-                    children: [
-                      Form(
-                        key: _formKey,
-                        child: Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(top: 30),
-                          child: Column(
-                            children: [
-                              Center(
-                                child: Container(
-                                  margin:
-                                  const EdgeInsets.fromLTRB(12, 0, 12, 10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      const Padding(
-                                        padding:
-                                        EdgeInsets.symmetric(vertical: 10),
-                                        child: Text(
-                                          'Email',
-                                          style: TextStyle(
-                                              color: Color(secondaryColor),
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w700),
-                                        ),
-                                      ),
-                                      TextFormField(
-                                        decoration: const InputDecoration(
-                                          border: OutlineInputBorder(),
-                                        ),
-                                        validator: (value) {
-                                          var input = value!.trim();
-                                          if (isStringEmpty(input)) {
-                                            return 'Email is required';
-                                          }
-                                          if (!isEmailValid(input)) {
-                                            return 'Invalid email format';
-                                          }
-                                          return null;
-                                        },
-                                        onChanged: (text) {
-                                          setState(() {
-                                            _email = text;
-                                          });
-                                        },
-                                      )
-                                    ],
+              Column(
+                children: [
+                  Form(
+                    key: _formKey,
+                    child: Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(top: 30),
+                      child: Column(
+                        children: [
+                          Center(
+                            child: Container(
+                              margin:
+                              const EdgeInsets.fromLTRB(12, 0, 12, 10),
+                              child: Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                                children: [
+                                  const Padding(
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 10),
+                                    child: Text(
+                                      'Email',
+                                      style: TextStyle(
+                                          color: Color(secondaryColor),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700),
+                                    ),
                                   ),
-                                ),
+                                  TextFormField(
+                                    decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    validator: (value) {
+                                      var input = value!.trim();
+                                      if (isStringEmpty(input)) {
+                                        return 'Email is required';
+                                      }
+                                      if (!isEmailValid(input)) {
+                                        return 'Invalid email format';
+                                      }
+                                      return null;
+                                    },
+                                    onChanged: (text) {
+                                      setState(() {
+                                        _email = text;
+                                      });
+                                    },
+                                  )
+                                ],
                               ),
-                              Center(
-                                child: Container(
-                                  margin:
-                                  const EdgeInsets.fromLTRB(12, 0, 12, 10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      const Padding(
-                                        padding:
-                                        EdgeInsets.symmetric(vertical: 10),
-                                        child: Text(
-                                          'Password',
-                                          style: TextStyle(
-                                              color: Color(secondaryColor),
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w700),
-                                        ),
-                                      ),
-                                      TextFormField(
-                                        obscureText: true,
-                                        decoration: const InputDecoration(
-                                          border: OutlineInputBorder(),
-                                        ),
-                                        validator: (value) {
-                                          var input = value!.trim();
-                                          if (isStringEmpty(input)) {
-                                            return 'Password is required';
-                                          }
-                                          if (!isPasswordValid(input)) {
-                                            return 'Password should be at least 8 characters long';
-                                          }
-                                          return null;
-                                        },
-                                        onChanged: (text) {
-                                          setState(() {
-                                            _password = text;
-                                          });
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        margin: const EdgeInsets.fromLTRB(12, 90, 12, 10),
-                        child: MaterialButton(
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              AuthService().registerWithEmailAndPassword(_email, _password);
-                            }
-                          },
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          color: const Color(secondaryColor),
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 20),
-                            child: Text(
-                              'Sign Up',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 22),
                             ),
                           ),
+                          Center(
+                            child: Container(
+                              margin:
+                              const EdgeInsets.fromLTRB(12, 0, 12, 10),
+                              child: Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                                children: [
+                                  const Padding(
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 10),
+                                    child: Text(
+                                      'Password',
+                                      style: TextStyle(
+                                          color: Color(secondaryColor),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ),
+                                  TextFormField(
+                                    obscureText: true,
+                                    decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    validator: (value) {
+                                      var input = value!.trim();
+                                      if (isStringEmpty(input)) {
+                                        return 'Password is required';
+                                      }
+                                      if (!isPasswordValid(input)) {
+                                        return 'Password should be at least 8 characters long';
+                                      }
+                                      return null;
+                                    },
+                                    onChanged: (text) {
+                                      setState(() {
+                                        _password = text;
+                                      });
+                                    },
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.fromLTRB(12, 90, 12, 10),
+                    child: MaterialButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          AuthService().registerWithEmailAndPassword(_email, _password);
+                        }
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      color: const Color(secondaryColor),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        child: Text(
+                          'Sign Up',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 22),
                         ),
                       ),
-                    ],
-                  ))
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),

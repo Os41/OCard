@@ -149,7 +149,7 @@ class _SummarizedContainerState extends State<SummarizedContainer> {
                     ),
                   ),
                 )
-              : SizedBox(),
+              : const SizedBox(),
         ],
       ),
     );

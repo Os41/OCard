@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../../Widgets/Logo.dart';
-import '../../../Widgets/PrivacyPolicy.dart';
 
 class PrivacyPolicy extends StatefulWidget {
   const PrivacyPolicy({Key? key}) : super(key: key);
@@ -61,7 +60,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                     ),
                   ),
                 ),
-                const logo(),
+                const Logo(),
                 Container(
                   width: screenWidth - 15,
                   height: screenHeight - (screenHeight / 4),
@@ -70,7 +69,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                     border: Border.all(width: 2, color: Colors.black54),
                     borderRadius: const BorderRadius.all(Radius.circular(25)),
                   ),
-                  child: const PrivaccyPolicy(),
+                  child: const PrivacyPolicy(),
                 ),
                 const SizedBox(
                   height: 20,

@@ -102,7 +102,7 @@ class _PurchaseByCardState extends State<PurchaseByCard> {
                   ),
                 ],
               ),
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: MaterialButton(
                   onPressed: () {},

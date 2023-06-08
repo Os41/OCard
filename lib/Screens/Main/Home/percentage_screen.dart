@@ -298,7 +298,7 @@ class _PercentageScreenState extends State<PercentageScreen> {
                                 icon: const Icon(
                                   Icons.add_card_rounded,
                                   color: Colors.white,
-                                )) : SizedBox(),
+                                )) : const SizedBox(),
                           ),
                         ],
                       ),

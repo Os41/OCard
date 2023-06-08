@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-class TextFelidbApp extends StatelessWidget {
-  TextFelidbApp({
+class TextFieldBApp extends StatelessWidget {
+  String hint;
+  TextFieldBApp({super.key,
     required this.hint,
   });
-  String hint = "";
   @override
   Widget build(BuildContext context) {
     return Padding(

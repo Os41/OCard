@@ -70,7 +70,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
+                SizedBox(
                   width: 150,
                   height: 150.0,
                   child: Image(
@@ -86,7 +86,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     lable: 'Name',
                   ),
                 ),
-                TextFelidApp(
+                TextFieldApp(
                   icon: const Icon(Icons.person),
                   hint: widget.userData!.fullName,
                 ),
@@ -96,7 +96,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     lable: 'ID',
                   ),
                 ),
-                TextFelidApp(
+                TextFieldApp(
                   icon: const Icon(Icons.numbers),
                   hint: widget.userData!.puid,
                 ),
@@ -128,7 +128,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     children: [
                       SizedBox(
                         width: screenWidth * 0.4,
-                        child: TextFelidSApp(
+                        child: TextFieldSApp(
                           lable: 'PIN',
                           hint: widget.userData!.passcode,
                         ),
@@ -138,14 +138,14 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       ),
                       SizedBox(
                         width: screenWidth * 0.2,
-                        child: TextFelidSApp(
+                        child: TextFieldSApp(
                           lable: 'MM',
                           hint: '01',
                         ),
                       ),
                       SizedBox(
                         width: screenWidth * 0.3,
-                        child: TextFelidSApp(
+                        child: TextFieldSApp(
                           lable: 'YYYY',
                           hint: '2000',
                         ),
@@ -159,7 +159,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     lable: 'Phone',
                   ),
                 ),
-                TextFelidApp(
+                TextFieldApp(
                   icon: const Icon(Icons.phone),
                   hint: widget.userData!.phoneNumber,
                 ),
@@ -169,7 +169,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 ButtonApp(
                   label: 'Save',
                   onSaveButtonPressed: () {
-                    print('Save button pressed');
+                    // print('Save button pressed');
                   },
                 ),
               ],

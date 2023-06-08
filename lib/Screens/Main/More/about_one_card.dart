@@ -63,7 +63,7 @@ class _AboutOneCardState extends State<AboutOneCard> {
                     ),
                   ),
                 ),
-                logo(),
+                const Logo(),
                 TextShow(
                   label:
                       'At One Card, our mission is to simplify the way people manage their finances by providing a centralized hub for all financial information and transactions. Our vision is to create a world where managing multiple bank credit cards is no longer a headache. We aim to achieve this by developing a mobile application that integrates with multiple bank accounts and credit cards, allowing users to access payment details, track balances in real-time, and analyze expenses all in one place. Our app, the One Card app, also allows users to transfer funds between credit cards, set constraints and budget limits for each card, and have a virtual savings account within the app. With secure authentication and an easy-to-use interface, the One Card app streamlines the entire process of managing multiple bank credit cards and credit cards, making it easier for users to take control of their finances',

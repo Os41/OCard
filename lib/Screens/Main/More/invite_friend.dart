@@ -64,14 +64,12 @@ class _InviteFriendState extends State<InviteFriend> {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
-                  child: Center(
-                    child: Image(
-                      image:
-                          const AssetImage('assets/images/invite _Friend.jpeg'),
-                      height: screenHeight / 2,
-                      fit: BoxFit.cover,
-                    ),
+                Center(
+                  child: Image(
+                    image:
+                        const AssetImage('assets/images/invite _Friend.jpeg'),
+                    height: screenHeight / 2,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(
@@ -97,7 +95,7 @@ class _InviteFriendState extends State<InviteFriend> {
                         padding: const EdgeInsets.only(left: 8),
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: screenWidth - (screenWidth / 2.4),
                               child: const Text(
                                 overflow: TextOverflow.ellipsis,
@@ -161,10 +159,10 @@ class _InviteFriendState extends State<InviteFriend> {
                       Radius.circular(13),
                     ),
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Column(
                       children: [
-                        const Text(
+                        Text(
                           overflow: TextOverflow.ellipsis,
                           "Total earned amount",
                           style: TextStyle(
@@ -172,32 +170,28 @@ class _InviteFriendState extends State<InviteFriend> {
                               color: Color(0XFF8B8B8B),
                               fontWeight: FontWeight.bold),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          child: const Text(
-                            overflow: TextOverflow.ellipsis,
-                            "0  SAR",
-                            style: TextStyle(
-                              fontSize: 30.0,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        Text(
+                          overflow: TextOverflow.ellipsis,
+                          "0  SAR",
+                          style: TextStyle(
+                            fontSize: 30.0,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          child: const Text(
-                            overflow: TextOverflow.ellipsis,
-                            "Registered users : 0",
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              color: Color(0XFF8B8B8B),
-                              fontWeight: FontWeight.bold,
-                            ),
+                        Text(
+                          overflow: TextOverflow.ellipsis,
+                          "Registered users : 0",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Color(0XFF8B8B8B),
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
@@ -214,9 +208,9 @@ class _InviteFriendState extends State<InviteFriend> {
 }
 
 onCopyPressed() {
-  print("copy icon  prissed");
+  // print("copy icon  prissed");
 }
 
 onSharePressed() {
-  print("Share icon  prissed");
+  // print("Share icon  prissed");
 }

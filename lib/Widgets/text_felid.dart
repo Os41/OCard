@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TextFelidApp extends StatelessWidget {
-  TextFelidApp({
+class TextFieldApp extends StatelessWidget {
+  TextFieldApp({super.key,
     required this.icon,
     required this.hint,
   });

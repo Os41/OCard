@@ -11,7 +11,7 @@ double fetchTotalBalance(String uid, List<CreditCard> creditCards) {
       }
     }
   } catch (e) {
-    print('Failed to calculate total balance: $e');
+    // print('Failed to calculate total balance: $e');
   }
   return totalBalance;
 }
